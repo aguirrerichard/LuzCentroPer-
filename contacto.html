@@ -152,6 +152,7 @@
     <!-- SCRIPT PARA GUARDAR CONTACTO EN NEON CON VALIDACIÓN DE SESIÓN -->
     <script type="module">
         import { sql } from './js/neon-config.js';
+        import { mostrarNotificacion } from './js/auth.js';
 
         const formContacto = document.getElementById('form-contacto');
         const btnEnviar = document.getElementById('btn-enviar');
@@ -199,7 +200,7 @@
 
             } catch (error) {
                 console.error("Error al guardar el mensaje en Neon:", error);
-                alert("Hubo un error al intentar enviar tu mensaje. Por favor, revisa tu conexión e inténtalo de nuevo.");
+                mostrarNotificacion('Hubo un error al intentar enviar tu mensaje. Por favor, revisa tu conexión e inténtalo de nuevo.', 'error', 6000);
                 
                 btnEnviar.disabled = false;
                 btnEnviar.innerHTML = 'Enviar Mensaje <i class="fa-solid fa-paper-plane"></i>';

@@ -100,3 +100,11 @@ dialog h2 { color: var(--primario); margin-bottom: 8px; }
     .fila-buscar { flex-direction: column; }
     .nota-refresco { margin-left: 0; }
 }
+
+/* Confirmación propia */
+#dialogo-confirmar { width: min(92vw, 400px); }
+#confirmar-mensaje { margin: 6px 0 22px; line-height: 1.5; }
+#dialogo-confirmar button { background: var(--primario); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.25s; }
+#dialogo-confirmar button:hover { background: var(--acento); }
+#dialogo-confirmar .secundario { background: transparent; color: #64748b; border: 2px solid #cbd5e1; }
+#dialogo-confirmar .secundario:hover { background: #f1f5f9; color: var(--primario); }

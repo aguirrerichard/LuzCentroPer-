@@ -117,6 +117,18 @@
     </form>
   </dialog>
 
+  <!-- Confirmación propia (reemplaza al confirm() nativo del navegador) -->
+  <dialog id="dialogo-confirmar" aria-labelledby="confirmar-titulo" aria-describedby="confirmar-mensaje">
+    <form method="dialog">
+      <h2 id="confirmar-titulo">Confirmación</h2>
+      <p id="confirmar-mensaje"></p>
+      <div class="botones-dialogo">
+        <button type="submit" value="no" class="secundario">Cancelar</button>
+        <button type="submit" value="si" id="confirmar-si">Confirmar</button>
+      </div>
+    </form>
+  </dialog>
+
   <script type="module" src="js/caja.js"></script>
 </body>
 </html>

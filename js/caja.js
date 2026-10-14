@@ -22,7 +22,7 @@ async function buscarPendientes(criterio = '') {
            COALESCE(r.dni::text, u.dni::text)   AS dni
     FROM reclamos_luz r
     LEFT JOIN usuarios u ON u.id = r.id_usuario       -- LEFT: incluye reclamos creados en el panel
-    WHERE r.estado_pago = 'pendiente'
+    WHERE r.estado_pago = 'pendiente' AND r.monto_calculado > 0
       AND (   r.codigo_seguimiento ILIKE ${patron}
            OR COALESCE(r.dni::text, u.dni::text, '')        ILIKE ${patron}
            OR COALESCE(r.nombre_cliente, u.nombre, '')      ILIKE ${patron})
@@ -134,6 +134,19 @@ inputFecha.value = hoyEnLima();
 let pendientesCache = [];
 let registroEnCobro = null;
 let ultimoIdVisto = null;
+
+// Cuadro de confirmación propio: devuelve una promesa con true (confirmó) o false (canceló o pulsó Esc)
+const dialogoConfirmar = $('#dialogo-confirmar');
+function confirmar(titulo, mensaje, textoConfirmar = 'Confirmar') {
+  return new Promise((resolve) => {
+    $('#confirmar-titulo').textContent = titulo;
+    $('#confirmar-mensaje').textContent = mensaje;
+    $('#confirmar-si').textContent = textoConfirmar;
+    dialogoConfirmar.returnValue = '';
+    dialogoConfirmar.addEventListener('close', () => resolve(dialogoConfirmar.returnValue === 'si'), { once: true });
+    dialogoConfirmar.showModal();   // se apila encima del diálogo de cobro si este está abierto
+  });
+}
 
 function celda(fila, texto = '') {
   const td = document.createElement('td');
@@ -251,7 +264,9 @@ formCobro.addEventListener('submit', async (e) => {
     return;
   }
   const total = formatearSoles(Number(registroEnCobro.monto_calculado));
-  if (!confirm(`¿Confirmar el cobro de ${total} por la solicitud ${registroEnCobro.codigo_seguimiento}?`)) return;
+  const acepta = await confirmar('Confirmar cobro',
+    `¿Confirmar el cobro de ${total} por la solicitud ${registroEnCobro.codigo_seguimiento}?`, 'Sí, cobrar');
+  if (!acepta) return;
 
   const botonConfirmar = formCobro.querySelector('button[type="submit"]');
   botonConfirmar.disabled = true;
@@ -313,7 +328,9 @@ async function pintarPagosEnLinea() {
 tablaEnLinea.addEventListener('click', async (e) => {
   const b = e.target.closest('button[data-accion="verificar"]');
   if (!b) return;
-  if (!confirm('¿Confirmas que este pago figura en el estado de cuenta de la entidad?')) return;
+  const acepta = await confirmar('Verificar pago',
+    '¿Confirmas que este pago figura en el estado de cuenta de la entidad?', 'Sí, verificar');
+  if (!acepta) return;
   b.disabled = true;
   try {
     await verificarPago(Number(b.dataset.id));

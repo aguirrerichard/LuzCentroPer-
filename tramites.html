@@ -67,6 +67,7 @@
     <!-- Script para guardar en Neon -->
     <script type="module">
         import { sql } from './js/neon-config.js';
+        import { mostrarNotificacion } from './js/auth.js';
 
         const form = document.getElementById('form-cambio-titular');
         const btnEnviar = document.getElementById('btn-enviar');
@@ -86,12 +87,12 @@
             const nombres = inputNombres.value.trim();
             
             if (!suministro || !nombres) {
-                alert('Por favor, completa todos los campos.');
+                mostrarNotificacion('Por favor, completa todos los campos.', 'advertencia');
                 return;
             }
 
             if (suministro.length < 6) {
-                alert('El número de suministro debe tener al menos 6 dígitos.');
+                mostrarNotificacion('El número de suministro debe tener al menos 6 dígitos.', 'advertencia');
                 return;
             }
 
@@ -122,7 +123,7 @@
 
             } catch (error) {
                 console.error('Error al guardar en Neon:', error);
-                alert('Hubo un error al registrar el trámite en la base de datos.');
+                mostrarNotificacion('Hubo un error al registrar el trámite en la base de datos.', 'error', 6000);
             } finally {
                 btnEnviar.disabled = false;
                 btnEnviar.textContent = 'Procesar Solicitud';

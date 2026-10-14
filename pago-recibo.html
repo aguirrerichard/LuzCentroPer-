@@ -76,6 +76,7 @@
     <!-- SCRIPT TIPO MODULE PARA CONECTAR A NEON Y FORMATEAR -->
     <script type="module">
         import { sql } from './js/neon-config.js';
+        import { mostrarNotificacion } from './js/auth.js';
 
         // ELEMENTOS DEL DOM
         const formPago = document.getElementById('form-pago');
@@ -134,7 +135,7 @@
             
             // Validación de longitud de tarjeta
             if (numCompleto.length < 16) {
-                alert("Por favor, ingresa los 16 dígitos de la tarjeta.");
+                mostrarNotificacion('Por favor, ingresa los 16 dígitos de la tarjeta.', 'advertencia');
                 return;
             }
 
@@ -170,7 +171,7 @@
 
             } catch (error) {
                 console.error('Error al procesar el pago en Neon:', error);
-                alert('Lo sentimos, hubo un error de conexión al procesar el pago. Inténtalo de nuevo.');
+                mostrarNotificacion('Lo sentimos, hubo un error de conexión al procesar el pago. Inténtalo de nuevo.', 'error', 6000);
             } finally {
                 btnProcesar.disabled = false;
                 btnProcesar.innerHTML = 'Procesar Pago Seguro <i class="fa-solid fa-lock"></i>';
