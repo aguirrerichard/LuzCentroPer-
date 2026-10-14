@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Virtual | LuzCentro Perú</title>
+    <link rel="stylesheet" href="css/formulario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .texto-ayuda {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.85em;
+            color: #0a2540;
+            background-color: #f1f8ff;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #0066ff;
+        }
+        .campo-oculto {
+            display: none;
+        }
+        .grupo-input label {
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 85%;
+        }
+        .grupo-input input:focus ~ label,
+        .grupo-input input:valid ~ label,
+        .grupo-input input:not(:placeholder-shown) ~ label,
+        .grupo-input textarea:focus ~ label,
+        .grupo-input textarea:not(:placeholder-shown) ~ label {
+            font-size: 12px;
+            max-width: 95%;
+            padding: 0 5px;
+            background-color: #ffffff;
+        }
+        .numero-destacado {
+            background: #f1f5f9;
+            color: #0066ff;
+            font-size: 2.5em;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px auto;
+            display: inline-block;
+            letter-spacing: 2px;
+        }
+        .btn-pagar-instalacion {
+            background: #0066ff;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .btn-pagar-instalacion:hover {
+            background: #0052cc;
+        }
+    </style>
+</head>
+<body>
+    <header id="menu-principal">
+        <div class="logo-container">
+            <div class="logo-box"><i class="fa-solid fa-bolt"></i></div>
+            <h1>LuzCentro Perú</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="servicios.html">Servicios y Trámites</a></li>
+                <li><a href="requisitos.html">Requisitos</a></li>
+                <li><a href="formulario.html" class="activo">Formularios</a></li>
+                <li><a href="contacto.html"><i class="fa-solid fa-headset"></i> Contacto</a></li>
+                
+                <!-- Enlaces para usuarios no logueados -->
+                <li class="guest-only"><a href="login.html"><i class="fa-solid fa-user"></i> Iniciar Sesión</a></li>
+                <li class="guest-only"><a href="registro.html" class="btn-nav">Crear Cuenta</a></li>
+                
+                <!-- Contenedor para usuario logueado -->
+                <li class="user-only" style="display: none;">
+                    <div class="usuario-header-box">
+                        <span class="usuario-header-link">
+                            <i class="fa-solid fa-circle-user"></i> <span id="user-name-display">Usuario</span>
+                        </span>
+                        <button id="btn-cerrar-sesion" class="btn-cerrar-header">
+                            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="banner-interno" style="background-image: linear-gradient(rgba(10,37,64,0.85), rgba(10,37,64,0.85)), url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1920&q=80');">
+        <div class="contenido-banner">
+            <h1>Mesa de Partes Virtual</h1>
+            <p>Ingresa tus solicitudes técnicas y comerciales sin salir de casa</p>
+        </div>
+    </div>
+
+    <main class="contenedor-formulario">
+        <div class="caja-formulario">
+            <div class="cabecera-form" id="cabecera-form">
+                <h2>Ingreso de Solicitud</h2>
+                <p>Por favor, selecciona tu trámite y completa los datos. Los campos con (*) son obligatorios.</p>
+            </div>
+            
+            <form id="form-reclamo">
+                
+                <div class="grupo-input">
+                    <select id="tipo_tramite" required>
+                        <option value="" disabled selected>Selecciona el tipo de trámite *</option>
+                        <option value="Nuevo Suministro">Nuevo Suministro</option>
+                        <option value="Cambio de Titular">Cambio de Titularidad</option>
+                        <option value="Reclamo por Monto Excesivo">Reclamo por Facturación (Monto Excesivo)</option>
+                        <option value="Otros">Otros</option>
+                    </select>
+                </div>
+
+                <div id="seccion-dinamica" class="campo-oculto">
+
+                    <div class="grid-2-col">
+                        <div class="grupo-input">
+                            <input type="text" id="dni" required placeholder=" ">
+                            <label for="dni" id="lbl-dni">DNI / RUC del Solicitante *</label>
+                        </div>
+                        <div class="grupo-input">
+                            <input type="text" id="nombres" required placeholder=" ">
+                            <label for="nombres">Nombres y Apellidos *</label>
+                        </div>
+                    </div>
+
+                    <!-- N° Suministro -->
+                    <div class="grupo-input" id="div-suministro">
+                        <input type="text" id="suministro" required placeholder=" ">
+                        <label for="suministro" id="lbl-suministro">N° Suministro Actual *</label>
+                    </div>
+
+                    <div class="grupo-input campo-oculto" id="div-direccion">
+                        <input type="text" id="direccion" placeholder=" ">
+                        <label for="direccion">Dirección exacta para instalación *</label>
+                    </div>
+
+                    <div class="grid-2-col campo-oculto" id="div-datos-reclamo">
+                        <div class="grupo-input">
+                            <input type="month" id="mes_reclamo" placeholder=" ">
+                            <label for="mes_reclamo">Mes a reclamar *</label>
+                        </div>
+                        <div class="grupo-input">
+                            <input type="number" step="0.01" id="monto_reclamo" placeholder=" ">
+                            <label for="monto_reclamo">Monto a reclamar (S/) *</label>
+                        </div>
+                    </div>
+
+                    <!-- COTIZADOR: derecho de prueba de contraste de medidor (solo reclamo por monto excesivo) -->
+                    <fieldset class="campo-oculto" id="div-contraste">
+                        <legend><i class="fa-solid fa-gauge-high"></i> Prueba de contraste de medidor</legend>
+                        <p class="texto-ayuda">Para derivar tu reclamo a inspección se cobra el derecho de contraste:
+                            <strong>Monofásico S/ 35.00</strong> o <strong>Trifásico S/ 75.00</strong>,
+                            más <strong>S/ 2.50 por km</strong> fuera de la zona urbana.</p>
+                        <div class="grid-2-col">
+                            <div class="grupo-input grupo-estatico">
+                                <label for="tipo_medidor">Tipo de medidor *</label>
+                                <select id="tipo_medidor" name="tipo_medidor">
+                                    <option value="monofasico" selected>Monofásico</option>
+                                    <option value="trifasico">Trifásico</option>
+                                </select>
+                            </div>
+                            <div class="grupo-input grupo-estatico">
+                                <label for="km_fuera_zona">Km fuera de la zona urbana *</label>
+                                <input type="number" id="km_fuera_zona" name="km_fuera_zona" min="0" max="999" step="0.1" value="0" inputmode="decimal">
+                            </div>
+                        </div>
+                        <p class="monto-cotizado">Monto estimado:
+                            <output id="monto-estimado" for="tipo_medidor km_fuera_zona" aria-live="polite">S/ 35.00</output>
+                        </p>
+                    </fieldset>
+
+                    <div class="grupo-input">
+                        <textarea id="descripcion" rows="4" required placeholder=" "></textarea>
+                        <label for="descripcion" id="lbl-descripcion">Descripción de la Solicitud *</label>
+                    </div>
+
+                    <div class="grupo-archivo">
+                        <label for="adjunto"><i class="fa-solid fa-paperclip"></i> Archivos Adjuntos (PDF, JPG)</label>
+                        <input type="file" id="adjunto" accept=".pdf,.jpg,.png" multiple>
+                        <span id="requisitos-adjunto" class="texto-ayuda">Aquí aparecerán los requisitos según tu trámite.</span>
+                    </div>
+
+                    <button type="submit" id="btn-enviar-reclamo" class="btn-enviar">Registrar Solicitud <i class="fa-solid fa-file-export"></i></button>
+                </div>
+            </form>
+
+            <!-- PANTALLA DE ÉXITO -->
+            <div id="seccion-exito" style="display: none; text-align: center; padding: 20px;">
+                <i class="fa-solid fa-circle-check" style="font-size: 5rem; color: #10b981;"></i>
+                <h2 style="color: #0a2540; margin-top: 15px;">¡Solicitud Registrada!</h2>
+                <p style="color: #475569; margin-bottom: 20px;">Tu código de seguimiento oficial es: <strong style="font-size:1.2rem; color:#047857;" id="codigo-generado"></strong></p>
+                
+                <div id="mensaje-nuevo-suministro" style="display: none;">
+                    <p style="color: #64748b;">Tu solicitud ha sido pre-aprobada. Este es el número de suministro registrado:</p>
+                    <div class="numero-destacado" id="num-generado">00000000</div>
+                    <p style="color: #475569; margin-bottom: 30px;">Se ha generado un recibo por <strong>Costo de Instalación (S/ 50.00)</strong>.</p>
+                    <a href="recibos.html" class="btn-pagar-instalacion">Ir a Pagar Instalación</a>
+                </div>
+
+                <div id="mensaje-otro-tramite" style="display: none;">
+                    <p style="color: #64748b;">Hemos recibido tu solicitud correctamente. Nuestro equipo la revisará.</p>
+                    <button onclick="location.reload()" class="btn-enviar" style="width: auto; padding: 10px 30px; margin-top: 20px;">Registrar otro trámite</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-base" style="width:100%; border:none; padding-top:20px; text-align:center;">
+                <p>&copy; 2026 LuzCentro Perú. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DE ALERTA PERSONALIZADO -->
+    <div id="custom-alert" class="custom-alert-overlay">
+        <div class="custom-alert-box">
+            <div class="custom-alert-header">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>Aviso del Sistema</span>
+            </div>
+            <div class="custom-alert-body" id="custom-alert-message">
+                <!-- El mensaje aparecerá aquí -->
+            </div>
+            <div class="custom-alert-footer">
+                <button onclick="cerrarAlerta()" class="btn-enviar" style="width: auto; padding: 10px 25px; border-radius: 6px;">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Importación de scripts JS -->
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/registro.js"></script>
+    
+    <script>
+        // EFECTO SCROLL PARA EL HEADER
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('menu-principal');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // LÓGICA DE ALERTA PERSONALIZADA
+        window.alert = function(mensaje) {
+            document.getElementById('custom-alert-message').innerText = mensaje;
+            document.getElementById('custom-alert').classList.add('activo');
+        };
+
+        function cerrarAlerta() {
+            document.getElementById('custom-alert').classList.remove('activo');
+            if(document.getElementById('custom-alert-message').innerText.includes("iniciar sesión")) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        // LÓGICA DE INTERFAZ DEL FORMULARIO
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectTramite = document.getElementById('tipo_tramite');
+            const seccionDinamica = document.getElementById('seccion-dinamica');
+            
+            const divSuministro = document.getElementById('div-suministro');
+            const inputSuministro = document.getElementById('suministro');
+            const lblSuministro = document.getElementById('lbl-suministro');
+
+            const divDireccion = document.getElementById('div-direccion');
+            const inputDireccion = document.getElementById('direccion');
+            
+            const divDatosReclamo = document.getElementById('div-datos-reclamo');
+            const inputMes = document.getElementById('mes_reclamo');
+            const inputMonto = document.getElementById('monto_reclamo');
+            
+            const lblDescripcion = document.getElementById('lbl-descripcion');
+            const requisitosAdjunto = document.getElementById('requisitos-adjunto');
+            const lblDni = document.getElementById('lbl-dni');
+
+            selectTramite.addEventListener('change', (e) => {
+                const tipo = e.target.value;
+                
+                seccionDinamica.style.display = 'block';
+
+                divSuministro.style.display = 'block';
+                inputSuministro.required = true;
+
+                divDireccion.style.display = 'none';
+                inputDireccion.required = false;
+
+                divDatosReclamo.style.display = 'none';
+                inputMes.required = false;
+                inputMonto.required = false;
+
+                if (tipo === 'Nuevo Suministro') {
+                    inputSuministro.value = Math.floor(10000000 + Math.random() * 90000000).toString();
+                    lblSuministro.innerText = 'N° Suministro (Autogenerado o escribe el tuyo) *';
+
+                    divDireccion.style.display = 'block';
+                    inputDireccion.required = true;
+                    
+                    lblDni.innerText = 'DNI del Titular *';
+                    lblDescripcion.innerText = 'Referencias para llegar al domicilio *';
+                    requisitosAdjunto.innerHTML = '<strong>Documentos requeridos:</strong> <br>1. Copia del DNI del titular. <br>2. Documento de propiedad. <br>3. Croquis de ubicación simple.';
+                } 
+                else {
+                    inputSuministro.value = '';
+                    lblSuministro.innerText = 'N° Suministro Actual *';
+
+                    if (tipo === 'Cambio de Titular') {
+                        lblDni.innerText = 'DNI del Nuevo Titular *';
+                        lblDescripcion.innerText = 'Motivo de cambio (Ej. Compra, alquiler) *';
+                        requisitosAdjunto.innerHTML = '<strong>Documentos requeridos:</strong> <br>1. Copia del DNI del nuevo titular. <br>2. Copia literal o contrato.';
+                    } 
+                    else if (tipo === 'Reclamo por Monto Excesivo') {
+                        divDatosReclamo.style.display = 'grid';
+                        inputMes.required = true;
+                        inputMonto.required = true;
+                        
+                        lblDni.innerText = 'DNI del Solicitante *';
+                        lblDescripcion.innerText = 'Fundamento del reclamo *';
+                        requisitosAdjunto.innerHTML = '<strong>Opcional:</strong> Puedes adjuntar una foto de tu medidor actual mostrando la lectura.';
+                    } 
+                    else {
+                        lblDni.innerText = 'DNI / RUC del Solicitante *';
+                        lblDescripcion.innerText = 'Descripción detallada *';
+                        requisitosAdjunto.innerHTML = '<strong>Opcional:</strong> Adjunta cualquier documento (PDF, JPG) que sustente tu petición.';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

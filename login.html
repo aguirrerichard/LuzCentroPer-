@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión | LuzCentro Perú</title>
+    <link rel="stylesheet" href="css/login.css">
+    <!-- Estilos para alternar entre Login y Registro -->
+    <style>
+        .toggle-enlace {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        .toggle-enlace a {
+            color: #f28b24;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .toggle-enlace a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <!-- Formulario de Iniciar Sesión -->
+        <section id="vista-login" class="seccion-login">
+            <h2>Iniciar Sesión</h2>
+            <p>Accede con tu cuenta para registrar tus solicitudes</p>
+
+            <form id="form-login">
+                <div>
+                    <label for="log-correo">Correo Electrónico:</label>
+                    <input type="email" id="log-correo" placeholder="correo@ejemplo.com" required>
+                </div>
+
+                <div>
+                    <label for="log-pass">Contraseña:</label>
+                    <input type="password" id="log-pass" placeholder="Tu contraseña" required>
+                </div>
+
+                <button type="submit">Acceder</button>
+            </form>
+            
+            <div class="toggle-enlace">
+                <p>¿Eres nuevo? <a href="#" id="btn-ir-registro">Crear una cuenta</a></p>
+            </div>
+        </section>
+
+        <!-- Formulario de Crear Cuenta (Oculto al inicio) -->
+        <section id="vista-registro" class="seccion-registro" style="display: none;">
+            <h2>Crear Cuenta</h2>
+            <p>Regístrate como usuario en LuzCentro Perú</p>
+
+            <form id="form-registro">
+                <div>
+                    <label for="reg-nombre">Nombre Completo:</label>
+                    <input type="text" id="reg-nombre" placeholder="Ej. Juan Pérez" required>
+                </div>
+
+                <div>
+                    <label for="reg-correo">Correo Electrónico:</label>
+                    <input type="email" id="reg-correo" placeholder="correo@ejemplo.com" required>
+                </div>
+
+                <div>
+                    <label for="reg-pass">Contraseña:</label>
+                    <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" required minlength="6">
+                </div>
+
+                <button type="submit">Crear Cuenta</button>
+            </form>
+
+            <div class="toggle-enlace">
+                <p>¿Ya tienes cuenta? <a href="#" id="btn-ir-login">Iniciar sesión</a></p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Script para alternar vistas de login y registro -->
+    <script>
+        const vistaLogin = document.getElementById('vista-login');
+        const vistaRegistro = document.getElementById('vista-registro');
+        const btnIrRegistro = document.getElementById('btn-ir-registro');
+        const btnIrLogin = document.getElementById('btn-ir-login');
+
+        btnIrRegistro.addEventListener('click', function(e) {
+            e.preventDefault();
+            vistaLogin.style.display = 'none';
+            vistaRegistro.style.display = 'block';
+        });
+
+        btnIrLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            vistaRegistro.style.display = 'none';
+            vistaLogin.style.display = 'block';
+        });
+    </script>
+
+    <!-- Módulo de autenticación -->
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+/* css/pago.css — pasarela de pagos del cliente (pago.html) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primario: #0A2540;
+    --secundario: #0077FF;
+    --acento: #FF7A00;
+    --fondo: #F4F7F9;
+    --blanco: #FFFFFF;
+    --texto: #425466;
+    --borde: #E2E8F0;
+    --verde: #10b981;
+    --rojo: #dc2626;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background-color: var(--fondo); color: var(--texto); line-height: 1.6; min-height: 100vh; }
+a { text-decoration: none; transition: all 0.3s ease; }
+ul { list-style: none; }
+
+/* Foco visible (accesibilidad) */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+    outline: 3px solid var(--secundario);
+    outline-offset: 2px;
+}
+
+/* ===== HEADER ===== */
+#menu-principal { position: sticky; top: 0; z-index: 1000; padding: 14px 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; background-color: var(--primario); border-bottom: 4px solid var(--acento); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+.logo-container { display: flex; align-items: center; gap: 12px; }
+.logo-box { background: var(--acento); color: var(--blanco); padding: 8px 13px; font-weight: 700; font-size: 22px; border-radius: 8px; }
+#menu-principal h1 { color: var(--blanco); font-size: 22px; letter-spacing: 0.5px; }
+nav ul { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+nav a { color: var(--blanco); font-weight: 500; font-size: 15px; position: relative; padding-bottom: 5px; }
+nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background-color: var(--acento); transition: width 0.3s ease; }
+nav a:hover::after, nav a.activo::after { width: 100%; }
+
+.usuario-header-box { display: flex; align-items: center; gap: 15px; }
+.usuario-header-link { color: var(--blanco); font-weight: 700; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+.usuario-header-link i { color: var(--acento); font-size: 1.3rem; }
+.btn-cerrar-header { background-color: #ef4444; color: #fff; border: none; padding: 8px 22px; border-radius: 50px; font-weight: 700; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.45); transition: all 0.3s ease; }
+.btn-cerrar-header:hover { background-color: #dc2626; transform: translateY(-2px); }
+
+/* ===== CONTENIDO ===== */
+.contenedor-pago { max-width: 640px; margin: 0 auto; padding: 40px 20px 60px; }
+.titulo-pagina { color: var(--primario); font-size: 1.8rem; display: flex; align-items: center; gap: 12px; }
+.titulo-pagina i { color: var(--verde); }
+.subtitulo-pagina { margin: 6px 0 24px; color: #64748b; font-size: 0.95rem; }
+
+.tarjeta { background: var(--blanco); border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border-top: 5px solid var(--secundario); padding: 26px 28px; margin-bottom: 22px; }
+.tarjeta h3 { color: var(--primario); font-size: 1.1rem; margin-bottom: 14px; }
+
+label { display: block; font-size: 13px; font-weight: 600; color: var(--primario); margin-bottom: 6px; }
+input, select { width: 100%; padding: 12px 14px; border: 2px solid #cbd5e1; border-radius: 8px; font-size: 15px; background: #fff; color: var(--texto); transition: border-color 0.2s, box-shadow 0.2s; }
+input:focus, select:focus { border-color: var(--secundario); box-shadow: 0 0 0 4px rgba(0,119,255,0.12); outline: none; }
+input[aria-invalid="true"] { border-color: var(--rojo); box-shadow: 0 0 0 3px rgba(220,38,38,0.12); }
+
+.total-pagar { margin-top: 16px; padding: 14px 18px; background: var(--primario); color: #fff; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; font-weight: 500; }
+.total-pagar strong { font-size: 1.6rem; color: #ffb066; }
+
+/* ===== MÉTODO DE PAGO ===== */
+.selector-metodo { border: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px; }
+.selector-metodo legend { font-size: 13px; font-weight: 600; color: var(--primario); margin-bottom: 8px; }
+.opcion-metodo { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border: 2px solid var(--borde); border-radius: 10px; cursor: pointer; font-weight: 500; margin: 0; }
+.opcion-metodo input { width: auto; accent-color: var(--secundario); }
+.opcion-metodo:has(input:checked) { border-color: var(--secundario); background: #eff6ff; color: var(--primario); }
+
+.grupo { margin-bottom: 18px; }
+.fila-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.marca { display: inline-block; margin-top: 4px; font-size: 13px; font-weight: 600; color: var(--secundario); min-height: 1.2em; }
+.error { display: block; margin-top: 4px; font-size: 12.5px; font-weight: 600; color: var(--rojo); min-height: 1em; }
+
+.btn-pagar { width: 100%; background: var(--verde); color: #fff; border: none; padding: 14px; border-radius: 8px; font-weight: 600; font-size: 16px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: 0.3s; }
+.btn-pagar:hover:not(:disabled) { background: #059669; transform: translateY(-2px); }
+.btn-pagar:disabled { opacity: 0.65; cursor: not-allowed; }
+
+/* ===== MENSAJES ===== */
+.mensaje { margin-bottom: 22px; padding: 14px 18px; border-radius: 10px; font-weight: 500; border-left: 5px solid; }
+.mensaje--info { background: #eff6ff; border-color: var(--secundario); color: #1e3a8a; }
+.mensaje--exito { background: #ecfdf5; border-color: var(--verde); color: #065f46; }
+.mensaje--error { background: #fef2f2; border-color: var(--rojo); color: #991b1b; }
+#mensaje-pago:empty { display: none; }
+
+/* ===== AYUDA DE PRUEBA ===== */
+.ayuda-prueba { margin-top: 22px; border-top: 1px dashed #cbd5e1; padding-top: 14px; font-size: 13px; }
+.ayuda-prueba summary { cursor: pointer; font-weight: 600; color: var(--primario); }
+.ayuda-prueba ul { margin: 10px 0 8px 18px; list-style: disc; }
+.ayuda-prueba li { margin-bottom: 2px; }
+.ayuda-prueba p { color: #64748b; font-style: italic; }
+
+[hidden] { display: none !important; }
+
+@media (max-width: 560px) {
+    .selector-metodo, .fila-2 { grid-template-columns: 1fr; }
+    .tarjeta { padding: 20px 16px; }
+}

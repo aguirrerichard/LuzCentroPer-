@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estado de Cuenta | LuzCentro Perú</title>
+    <link rel="stylesheet" href="css/estado-cuenta.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CORRECCIÓN DE DISEÑO Y DESNIVELES */
+        body { background-color: #f1f5f9; font-family: sans-serif; margin: 0; }
+        header { background: #0a2540; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 100%; box-sizing: border-box; z-index: 100; }
+        header a { color: white; text-decoration: none; font-weight: bold; }
+        
+        .contenedor-cuenta { 
+            max-width: 600px; 
+            margin: 130px auto 50px auto; 
+            padding: 0 20px;
+        }
+        .caja-busqueda {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .caja-busqueda h2 { margin-top: 0; color: #0f172a; }
+        .barra-busqueda {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        .barra-busqueda input {
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            width: 65%;
+            font-size: 16px;
+            outline: none;
+        }
+        .barra-busqueda input:focus { border-color: #0066ff; }
+        .btn-buscar {
+            background: #0066ff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .btn-buscar:hover { background: #0052cc; }
+
+        /* OCULTAMOS EL RECIBO AL CARGAR LA PÁGINA */
+        .resultado-simulado {
+            display: none; 
+            background: white;
+            margin-top: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .cabecera-recibo { background: #0a2540; color: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; }
+        .cabecera-recibo h3 { margin: 0; }
+        .estado-pendiente { background: #ef4444; color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.85em; font-weight: bold; }
+        .cuerpo-recibo { padding: 25px; display: flex; justify-content: space-between; align-items: center; }
+        .monto-deuda h4 { margin: 0; color: #64748b; font-size: 0.9em; text-transform: uppercase; }
+        .monto-deuda h2 { margin: 5px 0 0 0; color: #0f172a; font-size: 2.2em; }
+        
+        .acciones-recibo { padding: 20px; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; gap: 15px; justify-content: flex-end; }
+        .btn-accion { padding: 10px 20px; border-radius: 6px; font-weight: 600; text-decoration: none; color: white; transition: 0.3s; }
+        .btn-pagar { background: #10b981; }
+        .btn-pagar:hover { background: #059669; }
+        .btn-descargar { background: #475569; }
+        .btn-descargar:hover { background: #334155; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container" style="display: flex; align-items: center;">
+            <div class="logo-box" style="font-size: 1.5rem;"><i class="fa-solid fa-bolt"></i></div>
+            <h1 style="margin: 0 0 0 10px; font-size: 1.4rem;">LuzCentro Perú</h1>
+        </div>
+        <nav>
+            <ul style="display: flex; gap: 25px; list-style: none; margin: 0; padding: 0;">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="servicios.html"><i class="fa-solid fa-arrow-left"></i> Regresar a Servicios</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contenedor-cuenta">
+        <div class="caja-busqueda">
+            <h2>Buscar Estado de Cuenta</h2>
+            <p style="color: #64748b;">Ingresa tu número de suministro (mínimo 6 dígitos).</p>
+            <div class="barra-busqueda">
+                <input type="text" id="input-suministro" placeholder="Ej: 123456" maxlength="10">
+                <button class="btn-buscar" id="btn-consultar">Consultar</button>
+            </div>
+            <!-- Mensaje dinámico (errores o éxito sin deuda) -->
+            <p id="msg-sistema" style="display: none; margin-top: 15px; font-weight: bold; font-size: 0.9em;"></p>
+        </div>
+
+        <!-- El recibo dinámico (datos traídos de la BD) -->
+        <div class="resultado-simulado" id="resultado-recibo">
+            <div class="cabecera-recibo">
+                <h3 id="titulo-suministro">Detalle del Suministro: </h3>
+                <span class="estado-pendiente">Pendiente de Pago</span>
+            </div>
+            <div class="cuerpo-recibo">
+                <div class="datos-cliente">
+                    <p><strong>Titular:</strong> <span id="dato-titular">Cargando...</span></p>
+                    <p><strong>Mes de facturación:</strong> <span id="dato-mes">Cargando...</span></p>
+                </div>
+                <div class="monto-deuda">
+                    <h4>Total a Pagar</h4>
+                    <h2 id="dato-monto">S/ 0.00</h2>
+                </div>
+            </div>
+            <div class="acciones-recibo">
+                <a href="pago-recibo.html" class="btn-accion btn-pagar" id="btn-pagar-dinamico"><i class="fa-regular fa-credit-card"></i> Pagar en línea</a>
+                <a href="#" class="btn-accion btn-descargar" onclick="window.print(); return false;"><i class="fa-solid fa-download"></i> Descargar PDF</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Módulo de autenticación -->
+    <script type="module" src="js/auth.js"></script>
+
+    <!-- SCRIPT TIPO MODULE PARA BUSCAR EN NEON -->
+    <script type="module">
+        import { sql } from './js/neon-config.js';
+
+        const btnConsultar = document.getElementById('btn-consultar');
+        const inputSuministro = document.getElementById('input-suministro');
+        const resultado = document.getElementById('resultado-recibo');
+        const msgSistema = document.getElementById('msg-sistema');
+
+        // Elementos de la interfaz
+        const tituloSuministro = document.getElementById('titulo-suministro');
+        const datoTitular = document.getElementById('dato-titular');
+        const datoMes = document.getElementById('dato-mes');
+        const datoMonto = document.getElementById('dato-monto');
+        const btnPagarDinamico = document.getElementById('btn-pagar-dinamico');
+
+        btnConsultar.addEventListener('click', async () => {
+            const suministro = inputSuministro.value.trim();
+
+            // Validar longitud mínima de 6 dígitos
+            if (suministro.length < 6) {
+                resultado.style.display = 'none';
+                msgSistema.style.color = '#ef4444';
+                msgSistema.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Ingresa un número de suministro válido (mínimo 6 dígitos).';
+                msgSistema.style.display = 'block';
+                return;
+            }
+
+            try {
+                // Estado de carga
+                btnConsultar.disabled = true;
+                btnConsultar.textContent = 'Buscando...';
+                msgSistema.style.display = 'none';
+                resultado.style.display = 'none';
+
+                // 1. Buscamos TODOS los registros de ese suministro
+                const consulta = await sql`
+                    SELECT * FROM facturacion 
+                    WHERE numero_suministro = ${suministro}
+                `;
+
+                // 2. Verificamos si el suministro existe
+                if (consulta.length === 0) {
+                    msgSistema.style.color = '#ef4444';
+                    msgSistema.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> El número de suministro ingresado no existe en nuestros registros.';
+                    msgSistema.style.display = 'block';
+                } else {
+                    // Verificamos si alguna factura está pendiente
+                    const reciboPendiente = consulta.find(recibo => recibo.estado === 'pendiente');
+
+                    if (reciboPendiente) {
+                        // TIENE DEUDA: Mostramos el recibo y configuramos el botón de pago dinámico
+                        tituloSuministro.innerText = 'Detalle del Suministro: ' + reciboPendiente.numero_suministro;
+                        datoTitular.innerText = reciboPendiente.titular;
+                        datoMes.innerText = reciboPendiente.mes_facturacion;
+                        datoMonto.innerText = 'S/ ' + reciboPendiente.monto;
+                        
+                        // Redirección con parámetros URL a pago.html
+                        btnPagarDinamico.href = `pago-recibo.html?suministro=${encodeURIComponent(reciboPendiente.numero_suministro)}&monto=${encodeURIComponent(reciboPendiente.monto)}`;
+
+                        resultado.style.display = 'block';
+                    } else {
+                        // NO TIENE DEUDA
+                        msgSistema.style.color = '#10b981';
+                        msgSistema.innerHTML = '<i class="fa-solid fa-circle-check"></i> El suministro es válido y se encuentra al día. No hay recibos pendientes.';
+                        msgSistema.style.display = 'block';
+                    }
+                }
+
+            } catch (error) {
+                console.error("Error al consultar Neon:", error);
+                msgSistema.style.color = '#ef4444';
+                msgSistema.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Error al conectar con la base de datos.';
+                msgSistema.style.display = 'block';
+            } finally {
+                btnConsultar.disabled = false;
+                btnConsultar.textContent = 'Consultar';
+            }
+        });
+    </script>
+</body>
+</html>

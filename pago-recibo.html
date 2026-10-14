@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago en Línea | LuzCentro Perú</title>
+    <link rel="stylesheet" href="css/pago-recibo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="contenedor-pago">
+        <div class="tarjeta-pago">
+            <div class="cabecera-pago">
+                <h2><i class="fa-solid fa-shield-halved"></i> Pasarela Segura</h2>
+                <a href="servicios.html" class="btn-cancelar" id="btn-cancelar">Cancelar</a>
+            </div>
+            
+            <!-- CONTENEDOR DEL FORMULARIO DE PAGO -->
+            <div id="seccion-formulario">
+                <div class="resumen-compra">
+                    <p>Pago de Recibo - Suministro <span id="num-suministro-pago">12345678</span></p>
+                    <h2 id="monto-mostrar">S/ 124.50</h2>
+                </div>
+
+                <form id="form-pago">
+                    <div class="grupo-input">
+                        <label>Nombre en la tarjeta</label>
+                        <input type="text" id="nombre-tarjeta" placeholder="EJ. JUAN PEREZ" required autocomplete="off">
+                    </div>
+                    
+                    <div class="grupo-input">
+                        <label>Número de Tarjeta</label>
+                        <div class="input-icono">
+                            <i class="fa-brands fa-cc-visa" id="icono-tarjeta"></i>
+                            <input type="text" id="numero-tarjeta" placeholder="0000 0000 0000 0000" maxlength="19" required autocomplete="off">
+                        </div>
+                    </div>
+                    
+                    <div class="grid-2">
+                        <div class="grupo-input">
+                            <label>Vencimiento (MM/AA)</label>
+                            <input type="text" id="fecha-vencimiento" placeholder="12/28" maxlength="5" required autocomplete="off">
+                        </div>
+                        <div class="grupo-input">
+                            <label>CVV</label>
+                            <input type="password" id="cvv-tarjeta" placeholder="***" maxlength="3" required autocomplete="off">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-pagar-final" id="btn-procesar">Procesar Pago Seguro <i class="fa-solid fa-lock"></i></button>
+                </form>
+                
+                <div class="logos-tarjetas">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <i class="fa-brands fa-cc-amex"></i>
+                </div>
+            </div>
+
+            <!-- CONTENEDOR DE ÉXITO (Oculto por defecto) -->
+            <div id="seccion-exito" style="display: none; text-align: center; padding: 40px 20px;">
+                <i class="fa-solid fa-circle-check" style="font-size: 5rem; color: #10b981; margin-bottom: 20px;"></i>
+                <h2 style="color: #0a2540; margin-bottom: 10px;">¡Pago Exitoso!</h2>
+                <p style="color: #64748b; margin-bottom: 25px;">Tu pago se ha registrado correctamente y tu recibo ha sido cancelado.</p>
+                <div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin-bottom: 25px; text-align: left; font-size: 0.9em; color: #475569;">
+                    <strong>Titular:</strong> <span id="resumen-nombre"></span><br>
+                    <strong>Tarjeta:</strong> <span id="resumen-tarjeta"></span><br>
+                    <strong>Monto pagado:</strong> <span id="resumen-monto">S/ 124.50</span>
+                </div>
+                <a href="servicios.html" class="btn-pagar-final" style="display: inline-block; text-decoration: none;">Volver a Servicios</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPT TIPO MODULE PARA CONECTAR A NEON Y FORMATEAR -->
+    <script type="module">
+        import { sql } from './js/neon-config.js';
+
+        // ELEMENTOS DEL DOM
+        const formPago = document.getElementById('form-pago');
+        const inputTarjeta = document.getElementById('numero-tarjeta');
+        const inputFecha = document.getElementById('fecha-vencimiento');
+        const inputCVV = document.getElementById('cvv-tarjeta');
+        const inputNombre = document.getElementById('nombre-tarjeta');
+        
+        const seccionFormulario = document.getElementById('seccion-formulario');
+        const seccionExito = document.getElementById('seccion-exito');
+        const btnProcesar = document.getElementById('btn-procesar');
+        const btnCancelar = document.getElementById('btn-cancelar');
+
+        // LECTURA DINÁMICA DE PARÁMETROS DE LA URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const suministro = urlParams.get('suministro') || '12345678';
+        const monto = parseFloat(urlParams.get('monto')) || 124.50;
+
+        // ACTUALIZACIÓN DE INTERFAZ CON DATOS DINÁMICOS
+        document.getElementById('num-suministro-pago').textContent = suministro;
+        document.getElementById('monto-mostrar').textContent = `S/ ${monto.toFixed(2)}`;
+        document.getElementById('resumen-monto').textContent = `S/ ${monto.toFixed(2)}`;
+
+        // --- 1. LÓGICA DE FORMATEO DE TARJETA (Visual) ---
+        inputTarjeta.addEventListener('input', function (e) {
+            let valor = e.target.value.replace(/\D/g, '');
+            let valorFormateado = '';
+            for (let i = 0; i < valor.length; i++) {
+                if (i > 0 && i % 4 === 0) valorFormateado += ' ';
+                valorFormateado += valor[i];
+            }
+            e.target.value = valorFormateado;
+        });
+
+        inputFecha.addEventListener('input', function (e) {
+            let valor = e.target.value.replace(/\D/g, '');
+            if (valor.length > 2) valor = valor.substring(0, 2) + '/' + valor.substring(2, 4);
+            e.target.value = valor;
+        });
+
+        inputCVV.addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\D/g, '').substring(0, 3);
+        });
+
+        inputNombre.addEventListener('input', function (e) {
+            e.target.value = e.target.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÑ\s]/g, '');
+        });
+
+        // --- 2. LÓGICA DE GUARDADO EN BASE DE DATOS ---
+        formPago.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Extraer nombre y enmascarar tarjeta
+            const nombre = inputNombre.value.trim();
+            const numCompleto = inputTarjeta.value.replace(/\s/g, ''); // Quitar espacios
+            
+            // Validación de longitud de tarjeta
+            if (numCompleto.length < 16) {
+                alert("Por favor, ingresa los 16 dígitos de la tarjeta.");
+                return;
+            }
+
+            // Crear máscara segura (Ej: **** **** **** 4567)
+            const ultimos4 = numCompleto.slice(-4);
+            const tarjetaEnmascarada = `**** **** **** ${ultimos4}`;
+
+            try {
+                // Cambiar estado del botón mientras procesa
+                btnProcesar.disabled = true;
+                btnProcesar.innerHTML = 'Procesando pago... <i class="fa-solid fa-circle-notch fa-spin"></i>';
+
+                // A. Insertar el registro en la tabla de pagos
+                await sql`
+                    INSERT INTO registro_pagos (numero_suministro, titular_tarjeta, tarjeta_enmascarada, monto)
+                    VALUES (${suministro}, ${nombre}, ${tarjetaEnmascarada}, ${monto})
+                `;
+
+                // B. Actualizar el estado de la factura para que ya no figure como pendiente
+                await sql`
+                    UPDATE facturacion 
+                    SET estado = 'pagado' 
+                    WHERE numero_suministro = ${suministro}
+                `;
+
+                // Mostrar pantalla de éxito
+                document.getElementById('resumen-nombre').textContent = nombre;
+                document.getElementById('resumen-tarjeta').textContent = tarjetaEnmascarada;
+                
+                seccionFormulario.style.display = 'none';
+                btnCancelar.style.display = 'none';
+                seccionExito.style.display = 'block';
+
+            } catch (error) {
+                console.error('Error al procesar el pago en Neon:', error);
+                alert('Lo sentimos, hubo un error de conexión al procesar el pago. Inténtalo de nuevo.');
+            } finally {
+                btnProcesar.disabled = false;
+                btnProcesar.innerHTML = 'Procesar Pago Seguro <i class="fa-solid fa-lock"></i>';
+            }
+        });
+    </script>
+</body>
+</html>

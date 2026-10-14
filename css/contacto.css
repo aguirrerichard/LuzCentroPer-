@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root { 
+    --primario: #0A2540; 
+    --secundario: #0077FF; 
+    --acento: #FF7A00; 
+    --fondo: #F4F7F9; 
+    --blanco: #FFFFFF; 
+    --texto: #425466; 
+    --sombra-suave: 0 10px 30px rgba(0,0,0,0.05); 
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background-color: var(--fondo); color: var(--texto); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+a { text-decoration: none; transition: all 0.3s ease; }
+ul { list-style: none; }
+
+/* HEADER TRANSPARENTE AL INICIO */
+#menu-principal { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    z-index: 1000; 
+    padding: 20px 5%; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background: transparent; 
+    box-shadow: none; 
+    border-bottom: 4px solid transparent; 
+    transition: all 0.4s ease; 
+}
+
+/* HEADER SÓLIDO AL HACER SCROLL (CON BORDE NARANJA) */
+#menu-principal.scrolled { 
+    padding: 12px 5%; 
+    background-color: var(--primario) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-bottom: 4px solid var(--acento) !important; 
+}
+
+.logo-container { display: flex; align-items: center; gap: 12px; }
+.logo-box { background: var(--acento); color: var(--blanco); padding: 8px 12px; font-weight: 700; font-size: 22px; border-radius: 8px; }
+#menu-principal h1 { color: var(--blanco) !important; font-size: 22px; font-weight: 700; transition: all 0.4s ease; }
+
+nav ul { display: flex; gap: 25px; align-items: center; }
+nav a { color: var(--blanco) !important; font-weight: 500; font-size: 15px; position: relative; padding-bottom: 5px; }
+nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background-color: var(--acento); transition: width 0.3s ease; }
+
+/* Excluimos el botón Crear Cuenta del efecto hover con línea abajo */
+nav a:not(.btn-nav):hover::after, nav a.activo:not(.btn-nav):after { width: 100%; color: var(--acento) !important; }
+
+/* Botón Crear Cuenta */
+.btn-nav {
+    background-color: var(--acento);
+    color: var(--blanco) !important;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+.btn-nav:hover {
+    background-color: #e66e00;
+    transform: translateY(-2px);
+}
+.btn-nav::after {
+    display: none !important;
+}
+
+/* ESTILOS DE SESIÓN EN HEADER */
+.usuario-header-box { display: inline-flex; align-items: center; gap: 12px; }
+.usuario-header-link { color: var(--blanco) !important; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; text-decoration: none; transition: color 0.3s ease; }
+.usuario-header-link i { color: var(--acento); font-size: 1.15rem; }
+.usuario-header-link:hover { color: var(--acento) !important; }
+
+.btn-cerrar-header {
+    background: #ef4444;
+    color: var(--blanco);
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.82rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+}
+
+.btn-cerrar-header:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(239, 68, 68, 0.4);
+}
+
+/* BANNER */
+.banner-interno { height: 45vh; display: flex; align-items: center; justify-content: center; text-align: center; background-size: cover; background-position: center; color: white; padding-top: 60px; }
+.contenido-banner h1 { font-size: 3.5rem; margin-bottom: 15px; font-weight: 700; }
+
+/* CONTENIDO CONTACTO */
+.contenedor-contacto { padding: 80px 10%; flex: 1; }
+.grid-contacto { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; max-width: 1100px; margin: 0 auto; }
+@media (max-width: 768px) { .grid-contacto { grid-template-columns: 1fr; } }
+
+/* INFO CONTACTO */
+.info-contacto h2 { color: var(--primario); font-size: 2.2rem; margin-bottom: 15px; }
+.info-contacto p { margin-bottom: 30px; font-size: 1.1rem; }
+.lista-contacto { display: flex; flex-direction: column; gap: 25px; }
+.item-contacto { display: flex; align-items: center; gap: 20px; transition: transform 0.3s ease; }
+.item-contacto:hover { transform: translateX(8px); }
+.icono-contacto { width: 60px; height: 60px; background: rgba(0, 119, 255, 0.1); color: var(--secundario); font-size: 24px; display: flex; justify-content: center; align-items: center; border-radius: 12px; }
+.item-contacto h4 { color: var(--primario); font-size: 1.1rem; }
+.item-contacto p { margin-bottom: 0; font-size: 0.95rem; }
+
+/* FORMULARIO FLOTANTE Y ESTADOS DE VALIDACIÓN */
+.caja-formulario { background: var(--blanco); padding: 40px; border-radius: 16px; box-shadow: var(--sombra-suave); border-top: 5px solid var(--acento); }
+.caja-formulario h3 { color: var(--primario); margin-bottom: 25px; font-size: 1.5rem; }
+.grupo-input { position: relative; margin-bottom: 25px; }
+.grupo-input input, .grupo-input textarea { width: 100%; padding: 15px; border: 2px solid #d1d5db; border-radius: 8px; outline: none; transition: all 0.3s; font-size: 15px; background: transparent; }
+.grupo-input input:focus, .grupo-input textarea:focus { border-color: var(--secundario); background: #f8fafc; }
+.grupo-input label { position: absolute; left: 15px; top: 15px; color: #9ca3af; transition: all 0.3s; pointer-events: none; background: var(--blanco); padding: 0 5px; }
+.grupo-input input:focus ~ label, .grupo-input input:not(:placeholder-shown) ~ label,
+.grupo-input textarea:focus ~ label, .grupo-input textarea:not(:placeholder-shown) ~ label { top: -10px; font-size: 13px; color: var(--secundario); font-weight: 600; }
+
+/* VALIDACIÓN EN TIEMPO REAL EN CAMPOS */
+input.valido, select.valido, textarea.valido { border-color: #10b981 !important; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important; }
+input.invalido, select.invalido, textarea.invalido { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important; }
+.msg-error { color: #ef4444; font-size: 0.78rem; font-weight: 600; margin-top: 4px; display: block; }
+
+.btn-enviar { background: var(--primario); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; }
+.btn-enviar:hover { background: var(--acento); transform: translateY(-2px); }
+
+/* FOOTER */
+footer { background: var(--primario); color: white; padding: 60px 10% 20px; border-top: 5px solid var(--acento); }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
+.footer-columna h3 { font-size: 1.2rem; margin-bottom: 20px; color: var(--blanco); }
+.footer-columna ul li { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; color: #a0aec0; }
+.footer-base { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #a0aec0; font-size: 14px; }
+
+/* ==================================================
+   MODAL DE AUTENTICACIÓN (REUTILIZADO DE SERVICIOS)
+   ================================================== */
+.modal-overlay { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(10, 37, 64, 0.8); 
+    backdrop-filter: blur(5px); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 2000; 
+    opacity: 0; 
+    visibility: hidden; 
+    transition: all 0.3s ease; 
+}
+.modal-overlay.activo { 
+    opacity: 1; 
+    visibility: visible; 
+}
+.modal-caja { 
+    background: white; 
+    padding: 40px; 
+    border-radius: 16px; 
+    width: 90%; 
+    max-width: 420px; 
+    text-align: center; 
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); 
+    transform: translateY(20px); 
+    transition: all 0.3s ease; 
+}
+.modal-overlay.activo .modal-caja { 
+    transform: translateY(0); 
+}
+.modal-icono { 
+    font-size: 45px; 
+    color: var(--acento); 
+    margin-bottom: 20px; 
+}
+.modal-caja h3 { 
+    color: var(--primario); 
+    font-size: 1.5rem; 
+    margin-bottom: 15px; 
+}
+.modal-caja p { 
+    color: var(--texto); 
+    margin-bottom: 25px; 
+    font-size: 0.95rem; 
+}
+.modal-botones { 
+    display: flex; 
+    gap: 15px; 
+    justify-content: center; 
+}
+.btn-modal-cancelar { 
+    padding: 10px 20px; 
+    border: 2px solid #cbd5e1; 
+    background: transparent; 
+    color: #64748b; 
+    font-weight: 600; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: 0.3s; 
+}
+.btn-modal-cancelar:hover { 
+    background: #f1f5f9; 
+    color: #0f172a; 
+}
+.btn-modal-login { 
+    padding: 10px 20px; 
+    background: var(--secundario); 
+    color: white; 
+    font-weight: 600; 
+    border-radius: 8px; 
+    border: none; 
+    cursor: pointer; 
+    transition: 0.3s; 
+}
+.btn-modal-login:hover { 
+    background: #005bb5; 
+}

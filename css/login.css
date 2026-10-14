@@ -1,0 +1,109 @@
+:root {
+    --azul-principal: #0b2545;
+    --azul-secundario: #134074;
+    --naranja-acento: #ff7f11;
+    --naranja-hover: #e66a00;
+    --blanco: #ffffff;
+    --gris-texto: #555555;
+    --gris-borde: #cccccc;
+    --gris-fondo: #f9f9f9;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--azul-principal) 0%, var(--azul-secundario) 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    background-color: var(--blanco);
+    width: 100%;
+    max-width: 450px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+}
+
+section h2 {
+    color: var(--azul-principal);
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+section p {
+    color: var(--gris-texto);
+    text-align: center;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+}
+
+form div {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    color: var(--azul-principal);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 12px 15px;
+    border: 2px solid var(--gris-borde);
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: var(--gris-fondo);
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--naranja-acento);
+    box-shadow: 0 0 5px rgba(255, 127, 17, 0.3);
+    background-color: var(--blanco);
+}
+
+/* VALIDACIÓN EN TIEMPO REAL */
+input.valido { border-color: #10b981 !important; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important; }
+input.invalido { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important; }
+.msg-error { color: #ef4444; font-size: 0.78rem; font-weight: 600; margin-top: 4px; display: block; }
+
+button[type="submit"] {
+    background-color: var(--naranja-acento);
+    color: var(--blanco);
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button[type="submit"]:hover { background-color: var(--naranja-hover); }
+button[type="submit"]:active { transform: scale(0.98); }
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #eeeeee;
+    margin: 35px 0;
+}
+
+.seccion-registro h2 { margin-top: 0; }

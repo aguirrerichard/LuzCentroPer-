@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+:root { --primario: #0A2540; --fondo: #f1f5f9; --blanco: #FFFFFF; --texto: #475569; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background-color: var(--fondo); display: flex; justify-content: center; align-items: center; min-height: 100vh; color: var(--texto); }
+a { text-decoration: none; }
+
+.contenedor-pago { width: 100%; padding: 20px; display: flex; justify-content: center; }
+.tarjeta-pago { background: var(--blanco); width: 100%; max-width: 450px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); padding: 30px; }
+.cabecera-pago { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; }
+.cabecera-pago h2 { color: #10b981; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+.btn-cancelar { color: #ef4444; font-size: 14px; font-weight: 500; }
+
+.resumen-compra { text-align: center; background: #f8fafc; padding: 20px; border-radius: 8px; margin-bottom: 25px; border: 1px dashed #cbd5e1; }
+.resumen-compra p { font-size: 14px; margin-bottom: 5px; }
+.resumen-compra h2 { color: var(--primario); font-size: 2rem; }
+
+.grupo-input { margin-bottom: 20px; }
+.grupo-input label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 8px; color: var(--primario); }
+.grupo-input input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 15px; outline: none; transition: 0.3s; }
+.grupo-input input:focus { border-color: #10b981; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1); }
+.input-icono { position: relative; }
+.input-icono i { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 24px; color: #1a1f36; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+.btn-pagar-final { width: 100%; background: #10b981; color: white; border: none; padding: 15px; border-radius: 6px; font-weight: 600; font-size: 16px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 10px; transition: 0.3s; }
+.btn-pagar-final:hover { background: #059669; }
+
+.logos-tarjetas { display: flex; justify-content: center; gap: 15px; margin-top: 20px; font-size: 28px; color: #94a3b8; }

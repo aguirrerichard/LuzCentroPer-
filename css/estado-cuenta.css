@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root { 
+    --primario: #0A2540; 
+    --secundario: #0077FF; 
+    --acento: #FF7A00; 
+    --fondo: #F4F7F9; 
+    --blanco: #FFFFFF; 
+    --texto: #425466; 
+    --sombra: 0 10px 30px rgba(0,0,0,0.08); 
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background-color: var(--fondo); color: var(--texto); display: flex; flex-direction: column; min-height: 100vh; }
+a { text-decoration: none; }
+
+header { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(10,37,64,0.95); backdrop-filter: blur(10px); transition: all 0.3s ease; }
+header.scrolled { background: rgba(10, 37, 64, 0.98) !important; padding: 12px 5%; box-shadow: var(--sombra); }
+.logo-container { display: flex; align-items: center; gap: 12px; }
+.logo-box { background: var(--acento); color: var(--blanco); padding: 8px 12px; border-radius: 6px; font-size: 20px; }
+header h1, nav a { color: var(--blanco); }
+nav ul { display: flex; gap: 20px; list-style: none; }
+nav a.activo { font-weight: 600; color: var(--acento); }
+
+.banner-interno { background: var(--primario); padding: 120px 5% 60px; text-align: center; color: white; }
+.banner-interno h1 { font-size: 2.5rem; margin-bottom: 10px; }
+
+.contenedor-cuenta { padding: 50px 10%; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 40px; }
+.caja-busqueda { background: var(--blanco); padding: 40px; border-radius: 12px; box-shadow: var(--sombra); width: 100%; max-width: 600px; text-align: center; }
+.caja-busqueda h2 { color: var(--primario); margin-bottom: 10px; }
+.barra-busqueda { display: flex; margin-top: 25px; gap: 10px; position: relative; }
+.barra-busqueda input { flex: 1; padding: 15px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; outline: none; transition: all 0.3s ease; }
+.barra-busqueda input:focus { border-color: var(--secundario); }
+
+/* ESTADOS DE VALIDACIÓN */
+input.valido { border-color: #10b981 !important; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important; }
+input.invalido { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important; }
+.msg-error { color: #ef4444; font-size: 0.78rem; font-weight: 600; margin-top: 4px; text-align: left; display: block; }
+
+.btn-buscar { background: var(--secundario); color: white; border: none; padding: 0 25px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+.btn-buscar:hover { background: var(--primario); }
+
+.resultado-simulado { background: var(--blanco); border-radius: 12px; box-shadow: var(--sombra); width: 100%; max-width: 800px; overflow: hidden; border-top: 5px solid #ef4444; display: none; }
+.cabecera-recibo { background: #f8fafc; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; }
+.cabecera-recibo h3 { color: var(--primario); }
+.estado-pendiente { background: #fef2f2; color: #ef4444; padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 14px; }
+.cuerpo-recibo { display: flex; padding: 30px; gap: 30px; }
+.datos-cliente { flex: 1; }
+.datos-cliente p { margin-bottom: 10px; }
+.monto-deuda { background: #f8fafc; padding: 25px; border-radius: 10px; text-align: center; min-width: 250px; border: 1px dashed #cbd5e1; }
+.monto-deuda h2 { color: #ef4444; font-size: 2.5rem; margin: 10px 0; }
+.acciones-recibo { padding: 20px 30px; background: #f8fafc; display: flex; gap: 15px; justify-content: flex-end; border-top: 1px solid #e2e8f0; }
+.btn-pagar { background: #10b981; color: white; border: none; padding: 12px 25px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+.btn-descargar { background: var(--texto); color: white; border: none; padding: 12px 25px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+
+footer { background: var(--primario); color: white; text-align: center; padding: 20px; margin-top: auto; }

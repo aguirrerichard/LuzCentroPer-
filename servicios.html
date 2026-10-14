@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios y Trámites | LuzCentro Perú</title>
+    <link rel="stylesheet" href="css/servicios.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header id="menu-principal">
+        <div class="logo-container">
+            <div class="logo-box"><i class="fa-solid fa-bolt"></i></div>
+            <h1>LuzCentro Perú</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="servicios.html" class="activo">Servicios y Trámites</a></li>
+                <li><a href="requisitos.html">Requisitos</a></li>
+                <li><a href="formulario.html">Formularios</a></li>
+                <li><a href="contacto.html"><i class="fa-solid fa-headset"></i> Contacto</a></li>
+                
+                <li class="guest-only"><a href="login.html"><i class="fa-solid fa-user"></i> Iniciar Sesión</a></li>
+                <li class="guest-only"><a href="registro.html" class="btn-nav">Crear Cuenta</a></li>
+                
+                <li class="user-only" style="display: none;">
+                    <div class="usuario-header-box">
+                        <span class="usuario-header-link">
+                            <i class="fa-solid fa-circle-user"></i> <span id="user-name-display">Usuario</span>
+                        </span>
+                        <button id="btn-cerrar-sesion" class="btn-cerrar-header">
+                            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- BANNER -->
+    <section class="banner-interno">
+        <div class="contenido-banner">
+            <h1>Oficina Virtual y Catálogo</h1>
+            <p>Realiza tus operaciones comerciales y técnicas en línea con rapidez y seguridad.</p>
+        </div>
+    </section>
+
+    <!-- CUERPO DE SERVICIOS -->
+    <main class="contenedor-servicios">
+        <div class="cabecera-seccion">
+            <h2>Gestiones en Línea</h2>
+            <p>Selecciona el tipo de trámite o consulta que deseas realizar.</p>
+        </div>
+        
+        <div class="cuadricula-tramites">
+            <div class="tarjeta-tramite">
+                <div class="icono-tramite"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                <div class="info-tramite">
+                    <h3>Facturación y Pagos</h3>
+                    <p>Consulta tu deuda actual, visualiza tu último recibo y realiza pagos seguros en línea.</p>
+                    <button class="btn-tramite requiere-auth" data-href="recibos.html">Ver estado de cuenta</button>
+                </div>
+            </div>
+            
+            <div class="tarjeta-tramite">
+                <div class="icono-tramite"><i class="fa-solid fa-user-pen"></i></div>
+                <div class="info-tramite">
+                    <h3>Cambio de Titular</h3>
+                    <p>Actualiza los datos del recibo si eres el nuevo propietario o inquilino del inmueble.</p>
+                    <button class="btn-tramite requiere-auth" data-href="tramites.html">Iniciar solicitud</button>
+                </div>
+            </div>
+
+            <div class="tarjeta-tramite">
+                <div class="icono-tramite"><i class="fa-solid fa-plug-circle-plus"></i></div>
+                <div class="info-tramite">
+                    <h3>Nuevo Suministro</h3>
+                    <p>Solicita la instalación de un nuevo medidor verificando primero los requisitos técnicos.</p>
+                    <button class="btn-tramite requiere-auth" data-href="requisitos.html">Ver requisitos</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-columna">
+                <div class="logo-box" style="display:inline-block; margin-bottom:15px;"><i class="fa-solid fa-bolt"></i></div>
+                <h3>LuzCentro Perú</h3>
+                <p>Comprometidos con el desarrollo energético y social del centro del país.</p>
+            </div>
+            <div class="footer-columna">
+                <h3>Atención al Cliente</h3>
+                <ul>
+                    <li><i class="fa-solid fa-phone"></i> (064) 200-000</li>
+                    <li><i class="fa-solid fa-envelope"></i> consultas@luzcentro.pe</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-base">
+            <p>&copy; 2026 LuzCentro Perú. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL DE AUTENTICACIÓN REQUERIDA -->
+    <div id="modal-auth" class="modal-overlay">
+        <div class="modal-caja">
+            <div class="modal-icono"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>Inicio de Sesión Requerido</h3>
+            <p>Para proteger tus datos y realizar este trámite, necesitas acceder a tu cuenta.</p>
+            <div class="modal-botones">
+                <button class="btn-modal-cancelar" onclick="cerrarModalAuth()">Cancelar</button>
+                <a href="login.html" class="btn-modal-login">Iniciar Sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/auth.js"></script>
+    <script>
+        // Efecto scroll en el Header
+        window.addEventListener("scroll", function() {
+            var header = document.getElementById("menu-principal");
+            if (window.scrollY > 50) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+        });
+
+        // Lógica de botones corregida
+        document.addEventListener('DOMContentLoaded', () => {
+            const authButtons = document.querySelectorAll('.requiere-auth');
+            const modal = document.getElementById('modal-auth');
+            
+            // Damos un pequeño tiempo para asegurar que auth.js haya cargado y actualizado el header
+            setTimeout(() => {
+                authButtons.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        
+                        // Validamos si el contenedor del usuario en el header ya está visible gracias a auth.js
+                        const contenedorUsuario = document.querySelector('.user-only');
+                        const sesionIniciada = contenedorUsuario && contenedorUsuario.style.display !== 'none';
+
+                        // También comprobamos localStorage por si acaso (ajusta 'usuario' si usas otra clave)
+                        const sesionStorage = localStorage.getItem('usuario') || sessionStorage.getItem('usuario'); 
+
+                        if (sesionIniciada || sesionStorage) {
+                            // Si hay sesión activa, redirige a la página del botón
+                            window.location.href = btn.getAttribute('data-href');
+                        } else {
+                            // Si no hay sesión, muestra el modal
+                            modal.classList.add('activo');
+                        }
+                    });
+                });
+            }, 100); // 100ms de retraso para que el DOM se actualice primero
+        });
+
+        function cerrarModalAuth() {
+            document.getElementById('modal-auth').classList.remove('activo');
+        }
+    </script>
+</body>
+</html>

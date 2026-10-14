@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root { 
+    --primario: #0A2540; 
+    --secundario: #0077FF; 
+    --acento: #FF7A00; 
+    --fondo: #F4F7F9; 
+    --blanco: #FFFFFF; 
+    --texto: #425466; 
+    --sombra: 0 10px 30px rgba(0,0,0,0.08); 
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background-color: var(--fondo); color: var(--texto); display: flex; flex-direction: column; min-height: 100vh; }
+a { text-decoration: none; transition: all 0.3s ease; }
+ul { list-style: none; }
+
+/* HEADER SÓLIDO POR DEFECTO PARA FORMULARIOS AISLADOS */
+#menu-principal { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    z-index: 1000; 
+    padding: 15px 5%; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: var(--primario);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-bottom: 4px solid var(--acento); 
+}
+
+.logo-container { display: flex; align-items: center; gap: 12px; }
+.logo-box { background: var(--acento); color: var(--blanco); padding: 8px 12px; border-radius: 6px; font-size: 20px; font-weight: 700;}
+#menu-principal h1 { color: var(--blanco) !important; font-size: 22px; font-weight: 700; }
+
+nav ul { display: flex; gap: 25px; align-items: center; }
+nav a { color: var(--blanco) !important; font-weight: 500; font-size: 15px; position: relative; padding-bottom: 5px; }
+nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background-color: var(--acento); transition: width 0.3s ease; }
+nav a:not(.btn-nav):hover::after, nav a.activo:not(.btn-nav)::after { width: 100%; }
+
+/* Botón Crear Cuenta */
+.btn-nav { background-color: var(--acento); color: var(--blanco) !important; padding: 8px 20px; border-radius: 25px; font-weight: 600; transition: background 0.3s ease, transform 0.2s ease; }
+.btn-nav:hover { background-color: #e66e00; transform: translateY(-2px); }
+.btn-nav::after { display: none !important; }
+
+/* ESTILOS DE SESIÓN EN HEADER */
+.usuario-header-box { display: inline-flex; align-items: center; gap: 12px; }
+.usuario-header-link { color: var(--blanco) !important; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; }
+.usuario-header-link i { color: var(--acento); font-size: 1.15rem; }
+.btn-cerrar-header { background: #ef4444; color: var(--blanco); border: none; padding: 6px 14px; border-radius: 20px; font-weight: 600; font-size: 0.82rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.3s ease; }
+.btn-cerrar-header:hover { background: #dc2626; transform: translateY(-2px); }
+
+/* CONTENEDOR FORMULARIO */
+.contenedor-formulario { padding: 120px 10% 50px; display: flex; justify-content: center; flex: 1; }
+.caja-formulario { background: var(--blanco); padding: 40px; border-radius: 12px; box-shadow: var(--sombra); width: 100%; max-width: 600px; }
+.caja-formulario h3 { color: var(--primario); margin: 25px 0 15px; border-bottom: 2px solid var(--fondo); padding-bottom: 10px; }
+.caja-formulario h3:first-child { margin-top: 0; }
+
+.grupo-input { margin-bottom: 20px; }
+.grupo-input label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
+.grupo-input input { width: 100%; padding: 12px; border: 2px solid #cbd5e1; border-radius: 6px; outline: none; font-size: 15px; transition: all 0.3s ease; }
+.grupo-input input:focus { border-color: var(--secundario); box-shadow: 0 0 0 3px rgba(0,119,255,0.1); }
+
+.btn-enviar { background: var(--primario); color: white; border: none; padding: 15px; width: 100%; border-radius: 6px; font-weight: 600; font-size: 16px; cursor: pointer; transition: 0.3s; }
+.btn-enviar:hover { background: var(--secundario); }

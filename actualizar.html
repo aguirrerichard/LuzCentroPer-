@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Reclamos | LuzCentro Perú</title>
+    <link rel="stylesheet" href="css/actualizar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header id="menu-principal">
+        <div class="logo-container">
+            <div class="logo-box"><i class="fa-solid fa-bolt"></i></div>
+            <h1>LuzCentro Perú</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="formulario.html">Nuevo Reclamo</a></li>
+                <li><a href="actualizar.html" class="activo">Mis Registros</a></li>
+                
+                <!-- Enlaces para usuarios no logueados (Requeridos por auth.js) -->
+                <li class="guest-only"><a href="login.html"><i class="fa-solid fa-user"></i> Iniciar Sesión</a></li>
+                <li class="guest-only"><a href="registro.html" class="btn-nav">Crear Cuenta</a></li>
+                
+                <!-- Contenedor para usuario logueado -->
+                <li class="user-only" style="display: none;">
+                    <div class="usuario-header-box">
+                        <span class="usuario-header-link">
+                            <i class="fa-solid fa-circle-user"></i> <span id="user-name-display">Usuario</span>
+                        </span>
+                        <button id="btn-cerrar-sesion" class="btn-cerrar-header">
+    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- BANNER -->
+    <div class="banner-interno">
+        <div class="contenido-banner">
+            <h1>Mis Reclamos y Gestiones</h1>
+            <p>Consulta el estado de tus trámites y actualiza tus fundamentos rápidamente.</p>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="contenedor-panel">
+        <div class="caja-panel">
+            <div class="cabecera-panel">
+                <h2><i class="fa-solid fa-file-invoice-dollar"></i> Registros Propios</h2>
+                <p>Aquí puedes visualizar el progreso de tus solicitudes. Recuerda que solo puedes editar la descripción de un reclamo si este aún se encuentra en estado <strong>Registrado</strong>.</p>
+            </div>
+
+            <div class="contenedor-tabla">
+                <table class="tabla-gestion">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Suministro</th>
+                            <th>Motivo</th>
+                            <th>Descripción / Fundamento</th>
+                            <th>Estado</th>
+                            <th>Contraste (S/)</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-mis-reclamos">
+                        <tr>
+                            <td colspan="7" class="texto-cargando">
+                                <i class="fa-solid fa-spinner fa-spin"></i> Cargando tus registros...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL DE EDICIÓN FLUIDO -->
+    <div id="modal-editar-cliente" class="modal-overlay">
+        <div class="modal-caja">
+            <div class="modal-icono"><i class="fa-solid fa-pen-to-square"></i></div>
+            <h3>Actualizar Reclamo</h3>
+            <p>Modifica el detalle o fundamento de tu reclamo antes de que sea procesado.</p>
+            
+            <input type="hidden" id="edit-id">
+            
+            <div class="grupo-input">
+                <textarea id="edit-comentario" rows="5" required placeholder=" "></textarea>
+                <label for="edit-comentario">Descripción / Fundamento detallado</label>
+            </div>
+
+            <!-- Solo para reclamos por monto excesivo: al cambiar estos datos se recalcula el derecho de contraste -->
+            <div id="edit-contraste" class="bloque-contraste" hidden>
+                <div class="campo-estatico">
+                    <label for="edit-tipo-medidor">Tipo de medidor</label>
+                    <select id="edit-tipo-medidor">
+                        <option value="monofasico">Monofásico</option>
+                        <option value="trifasico">Trifásico</option>
+                    </select>
+                </div>
+                <div class="campo-estatico">
+                    <label for="edit-km">Km fuera de la zona urbana</label>
+                    <input type="number" id="edit-km" min="0" max="999" step="0.1" value="0" inputmode="decimal">
+                </div>
+                <p class="monto-edicion">Monto estimado: <output id="edit-monto" for="edit-tipo-medidor edit-km" aria-live="polite">S/ 35.00</output></p>
+            </div>
+
+            <p id="edit-mensaje" class="mensaje-modal" role="alert"></p>
+
+            <div class="modal-botones">
+                <button type="button" id="btn-cancelar-cliente" class="btn-modal-cancelar">Cancelar</button>
+                <button type="button" id="btn-guardar-cliente" class="btn-modal-guardar">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/actualizar.js"></script>
+    <script>
+        // Efecto scroll en el Header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('menu-principal');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

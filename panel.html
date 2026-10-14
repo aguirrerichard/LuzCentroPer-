@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control Operativo | LuzCentro Perú</title>
+    <link rel="stylesheet" href="css/panel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER CORPORATIVO -->
+    <header id="menu-principal">
+        <div class="logo-container">
+            <div class="logo-box"><i class="fa-solid fa-bolt"></i></div>
+            <h1 class="logo-texto">LuzCentro Perú</h1>
+        </div>
+
+        <div class="usuario-sesion-badge" id="info-usuario-sesion">
+            <div class="user-avatar"><i class="fa-solid fa-user-gear"></i></div>
+            <div class="user-details">
+                <span id="user-nombre" class="user-name">Cargando...</span>
+                <span id="user-rol-turno" class="user-role-shift">Identificando...</span>
+            </div>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                <li><a href="panel.html" class="activo"><i class="fa-solid fa-user-shield"></i> Gestión Global</a></li>
+                <li>
+                    <button id="btn-cerrar-sesion" class="btn-cerrar-nav">
+                        <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- BANNER DE TITULO -->
+    <div class="banner-interno">
+        <div class="contenido-banner">
+            <h2>Módulo de Gestión Operativa</h2>
+            <p>Atención, consulta y resolución de reclamos por cobro excesivo</p>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="contenedor-panel">
+
+        <!-- TARJETAS DE INDICADORES KPI EN TIEMPO REAL -->
+        <section class="kpi-grid">
+            <div class="kpi-card total">
+                <div class="kpi-icono"><i class="fa-solid fa-folder-open"></i></div>
+                <div class="kpi-info">
+                    <span class="kpi-titulo">Total Reclamos</span>
+                    <h3 id="kpi-total" class="kpi-valor">0</h3>
+                </div>
+            </div>
+            <div class="kpi-card registrados">
+                <div class="kpi-icono"><i class="fa-solid fa-clock"></i></div>
+                <div class="kpi-info">
+                    <span class="kpi-titulo">Registrados</span>
+                    <h3 id="kpi-registrados" class="kpi-valor">0</h3>
+                </div>
+            </div>
+            <div class="kpi-card proceso">
+                <div class="kpi-icono"><i class="fa-solid fa-spinner"></i></div>
+                <div class="kpi-info">
+                    <span class="kpi-titulo">En Proceso</span>
+                    <h3 id="kpi-proceso" class="kpi-valor">0</h3>
+                </div>
+            </div>
+            <div class="kpi-card atendidos">
+                <div class="kpi-icono"><i class="fa-solid fa-circle-check"></i></div>
+                <div class="kpi-info">
+                    <span class="kpi-titulo">Atendidos</span>
+                    <h3 id="kpi-atendidos" class="kpi-valor">0</h3>
+                </div>
+            </div>
+            <div class="kpi-card rechazados">
+                <div class="kpi-icono"><i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="kpi-info">
+                    <span class="kpi-titulo">Rechazados</span>
+                    <h3 id="kpi-rechazados" class="kpi-valor">0</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAJA PRINCIPAL DE REGISTROS -->
+        <div class="caja-panel">
+            <div class="cabecera-panel">
+                <div class="titulo-seccion">
+                    <h2><i class="fa-solid fa-list-check"></i> Registro General de Reclamos</h2>
+                    <p>Gestiona y resuelve las solicitudes ingresadas por los usuarios en tiempo real.</p>
+                </div>
+                <button id="btn-abrir-crear" class="btn-nuevo-reclamo">
+                    <i class="fa-solid fa-plus-circle"></i> Nuevo Reclamo
+                </button>
+            </div>
+
+            <!-- BARRA DE BÚSQUEDA Y METRICAS -->
+            <div class="barra-busqueda">
+                <div class="input-buscar-container">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="input-buscar" placeholder="Buscar por Código, DNI, Cliente o Suministro...">
+                </div>
+                <div id="total-registros" class="badge-total">0 Reclamos</div>
+            </div>
+
+            <!-- TABLA CON ESTADOS VISUALES -->
+            <div class="contenedor-tabla">
+                <table class="tabla-gestion" id="tabla-solicitudes">
+                    <thead>
+                        <tr>
+                            <th style="width: 11%;">Código</th>
+                            <th style="width: 9%;">Fecha</th>
+                            <th style="width: 17%;">Cliente</th>
+                            <th style="width: 9%;">DNI</th>
+                            <th style="width: 10%;">Suministro</th>
+                            <th style="width: 12%;">Contraste</th>
+                            <th style="width: 11%;">Estado</th>
+                            <th style="width: 21%; text-align: center;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="8" class="texto-cargando">
+                                <i class="fa-solid fa-spinner fa-spin"></i> Cargando base de datos...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL ATENCIÓN Y DICTAMEN -->
+    <div id="modal-atencion" class="modal-overlay">
+        <div class="modal-card modal-lg">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-headset"></i> Centro de Atención y Dictamen de Reclamo</h3>
+                <button type="button" class="btn-cerrar-x" id="btn-cerrar-atencion-x">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="detalle-grid">
+                    <div class="detalle-item">
+                        <span class="label">Código de Reclamo:</span>
+                        <strong id="det-codigo" class="val-codigo">-</strong>
+                    </div>
+                    <div class="detalle-item">
+                        <span class="label">Fecha de Registro:</span>
+                        <span id="det-fecha" class="val-texto">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <span class="label">Cliente:</span>
+                        <span id="det-cliente" class="val-texto">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <span class="label">DNI / RUC:</span>
+                        <span id="det-dni" class="val-texto">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <span class="label">N° Suministro:</span>
+                        <span id="det-suministro" class="val-texto">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <span class="label">Estado Actual:</span>
+                        <span id="det-estado-badge" class="badge-estado">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <span class="label">Derecho de contraste:</span>
+                        <span id="det-monto" class="val-texto">-</span>
+                    </div>
+                    <div class="detalle-item">
+                        <span class="label">Estado de pago:</span>
+                        <span id="det-pago" class="val-texto">-</span>
+                    </div>
+                    <div class="detalle-item full-width">
+                        <span class="label">Fundamento / Sustento del Cliente:</span>
+                        <div id="det-comentario" class="caja-comentario">-</div>
+                    </div>
+                </div>
+
+                <hr class="divisor-modal">
+
+                <div class="campo-grupo">
+                    <label for="respuesta-admin"><i class="fa-solid fa-pen-to-square"></i> Respuesta u Observación de la Empresa:</label>
+                    <textarea id="respuesta-admin" placeholder="Escriba la solución, ajuste de facturación o motivo de rechazo..." rows="3"></textarea>
+                </div>
+
+                <div class="modal-footer-acciones">
+                    <span class="label-dictamen">Dictaminar Estado:</span>
+                    <div class="grupo-botones-dictamen">
+                        <button type="button" id="btn-dictamen-proceso" class="btn-accion-proceso">
+                            <i class="fa-solid fa-spinner"></i> En Proceso
+                        </button>
+                        <button type="button" id="btn-dictamen-rechazar" class="btn-accion-rechazar">
+                            <i class="fa-solid fa-circle-xmark"></i> Rechazar
+                        </button>
+                        <button type="button" id="btn-dictamen-atender" class="btn-accion-atender">
+                            <i class="fa-solid fa-circle-check"></i> Atender
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CREAR RECLAMO -->
+    <div id="modal-crear" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-square-plus"></i> Registrar Nuevo Reclamo</h3>
+                <button type="button" class="btn-cerrar-x" id="btn-cerrar-crear-x">&times;</button>
+            </div>
+            
+            <form id="form-crear-admin" class="modal-body">
+                <div class="campo-grupo">
+                    <label for="crear-dni"><i class="fa-solid fa-id-card"></i> DNI del Cliente (8 dígitos) *</label>
+                    <input type="text" id="crear-dni" placeholder="Ej. 73849102" minlength="8" maxlength="8" pattern="[0-9]{8}" inputmode="numeric" required>
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="crear-nombre"><i class="fa-solid fa-user"></i> Nombre Completo *</label>
+                    <input type="text" id="crear-nombre" placeholder="Ej. Richard Luis Aguirre" required>
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="crear-suministro"><i class="fa-solid fa-bolt"></i> N° Suministro (6 a 8 dígitos) *</label>
+                    <input type="text" id="crear-suministro" placeholder="Ej. 293819" minlength="6" maxlength="8" pattern="[0-9]{6,8}" inputmode="numeric" required>
+                </div>
+
+                <div class="grid-tarifa">
+                    <div class="campo-grupo">
+                        <label for="crear-tipo-medidor"><i class="fa-solid fa-gauge-high"></i> Tipo de medidor *</label>
+                        <select id="crear-tipo-medidor">
+                            <option value="monofasico">Monofásico (S/ 35.00)</option>
+                            <option value="trifasico">Trifásico (S/ 75.00)</option>
+                        </select>
+                    </div>
+                    <div class="campo-grupo">
+                        <label for="crear-km"><i class="fa-solid fa-road"></i> Km fuera de zona urbana *</label>
+                        <input type="number" id="crear-km" min="0" max="999" step="0.1" value="0" inputmode="decimal" required>
+                    </div>
+                </div>
+                <p class="monto-crear">Derecho de contraste a cobrar en caja: <output id="crear-monto" for="crear-tipo-medidor crear-km" aria-live="polite">S/ 35.00</output></p>
+
+                <div class="campo-grupo">
+                    <label for="crear-comentario"><i class="fa-solid fa-comment-dots"></i> Fundamento del Cobro Excesivo *</label>
+                    <textarea id="crear-comentario" placeholder="Describa el detalle o inconsistencia en la facturación..." rows="3" required></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="btn-cancelar-crear" class="btn-modal-cancelar">Cancelar</button>
+                    <button type="submit" class="btn-modal-guardar"><i class="fa-solid fa-floppy-disk"></i> Guardar Registro</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRMACIÓN DINÁMICO -->
+    <div id="modal-confirmacion" class="modal-overlay">
+        <div class="modal-card" style="max-width: 420px;">
+            <div class="modal-header">
+                <h3 id="confirm-titulo"><i class="fa-solid fa-circle-question"></i> Confirmación</h3>
+            </div>
+            <div class="modal-body confirm-body-content">
+                <i class="fa-solid fa-triangle-exclamation confirm-icon"></i>
+                <p id="confirm-mensaje" class="confirm-text">¿Estás seguro de realizar esta acción?</p>
+            </div>
+            <div class="modal-footer" style="justify-content: center; padding-bottom: 20px;">
+                <button type="button" id="btn-confirm-no" class="btn-modal-cancelar">Cancelar</button>
+                <button type="button" id="btn-confirm-si" class="btn-modal-guardar" style="background-color: #dc2626;">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR DE ALERTAS TOAST -->
+    <div id="toast-container"></div>
+
+    <footer>
+        <p>&copy; 2026 LuzCentro Perú S.A. - Sistema de Gestión de Solicitudes y Reclamos</p>
+    </footer>
+
+    <script type="module" src="js/panel.js"></script>
+</body>
+</html>

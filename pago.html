@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagar derecho de contraste | LuzCentro Perú</title>
+    <link rel="stylesheet" href="css/pago.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header id="menu-principal">
+        <div class="logo-container">
+            <div class="logo-box"><i class="fa-solid fa-bolt"></i></div>
+            <h1>LuzCentro Perú</h1>
+        </div>
+        <nav aria-label="Navegación principal">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="formulario.html">Nuevo Reclamo</a></li>
+                <li><a href="actualizar.html">Mis Registros</a></li>
+                <li><a href="pago.html" class="activo" aria-current="page">Pagar</a></li>
+
+                <!-- Enlaces para usuarios no logueados (los reemplaza js/auth.js al detectar la sesión) -->
+                <li class="guest-only"><a href="login.html"><i class="fa-solid fa-user"></i> Iniciar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contenedor-pago">
+        <h2 class="titulo-pagina"><i class="fa-solid fa-shield-halved"></i> Pago en línea</h2>
+        <p class="subtitulo-pagina">Derecho de prueba de contraste de medidor. Al pagar, tu reclamo queda habilitado para ser derivado a inspección.</p>
+
+        <section class="tarjeta" aria-labelledby="t-resumen">
+            <h3 id="t-resumen">Resumen</h3>
+            <label for="registro">Solicitud a pagar</label>
+            <select id="registro" name="registro"></select>
+            <p class="total-pagar">Total a pagar: <strong id="resumen-monto">—</strong></p>
+        </section>
+
+        <p id="mensaje-pago" role="status" aria-live="polite"></p>
+
+        <section class="tarjeta" id="bloque-pago" aria-label="Datos de pago">
+            <fieldset class="selector-metodo" id="selector-metodo">
+                <legend>Método de pago</legend>
+                <label class="opcion-metodo"><input type="radio" name="metodo" value="tarjeta" checked> <i class="fa-regular fa-credit-card"></i> Tarjeta de débito o crédito</label>
+                <label class="opcion-metodo"><input type="radio" name="metodo" value="billetera"> <i class="fa-solid fa-wallet"></i> Billetera electrónica</label>
+            </fieldset>
+
+            <form id="form-tarjeta" novalidate>
+                <div class="grupo">
+                    <label for="numero">Número de tarjeta</label>
+                    <input id="numero" name="numero" inputmode="numeric" autocomplete="cc-number" maxlength="23"
+                           required aria-describedby="marca-detectada error-numero">
+                    <span id="marca-detectada" class="marca"></span>
+                    <span id="error-numero" class="error"></span>
+                </div>
+
+                <div class="fila-2">
+                    <div class="grupo">
+                        <label for="vencimiento">Vencimiento (MM/AA)</label>
+                        <input id="vencimiento" name="vencimiento" inputmode="numeric" autocomplete="cc-exp" maxlength="5"
+                               placeholder="MM/AA" required aria-describedby="error-vencimiento">
+                        <span id="error-vencimiento" class="error"></span>
+                    </div>
+                    <div class="grupo">
+                        <label for="cvv">CVV</label>
+                        <input id="cvv" name="cvv" type="password" inputmode="numeric" autocomplete="cc-csc" maxlength="4"
+                               required aria-describedby="error-cvv">
+                        <span id="error-cvv" class="error"></span>
+                    </div>
+                </div>
+
+                <div class="grupo">
+                    <label for="titular">Nombre del titular</label>
+                    <input id="titular" name="titular" autocomplete="cc-name" required aria-describedby="error-titular">
+                    <span id="error-titular" class="error"></span>
+                </div>
+
+                <button type="submit" class="btn-pagar"><i class="fa-solid fa-lock"></i> Pagar con tarjeta</button>
+            </form>
+
+            <form id="form-billetera" novalidate hidden>
+                <div class="grupo">
+                    <label for="proveedor">Billetera</label>
+                    <select id="proveedor" name="proveedor">
+                        <option value="andipay">AndiPay</option>
+                        <option value="pagomovil">PagoMóvil</option>
+                    </select>
+                </div>
+
+                <div class="grupo">
+                    <label for="celular">Celular afiliado</label>
+                    <input id="celular" name="celular" inputmode="numeric" autocomplete="tel-national" maxlength="9"
+                           required aria-describedby="error-celular">
+                    <span id="error-celular" class="error"></span>
+                </div>
+
+                <div class="grupo">
+                    <label for="codigo">Código de aprobación (6 dígitos que muestra tu billetera)</label>
+                    <input id="codigo" name="codigo" inputmode="numeric" autocomplete="one-time-code" maxlength="6"
+                           required aria-describedby="error-codigo">
+                    <span id="error-codigo" class="error"></span>
+                </div>
+
+                <button type="submit" class="btn-pagar"><i class="fa-solid fa-lock"></i> Pagar con billetera</button>
+            </form>
+
+            <details class="ayuda-prueba">
+                <summary>Datos de prueba (simulación académica)</summary>
+                <ul>
+                    <li>Visa aprobada: 4111 1111 1111 1111 · 12/29 · CVV 123</li>
+                    <li>Visa sin saldo: 4000 0000 0000 0002 · 08/28 · CVV 456</li>
+                    <li>Mastercard crédito: 5555 5555 5555 4444 · 05/30 · CVV 789</li>
+                    <li>Mastercard bloqueada: 5105 1051 0510 5100 · 03/27 · CVV 321</li>
+                    <li>American Express: 3782 8224 6310 005 · 11/28 · CVV 1234</li>
+                    <li>AndiPay: 987654321 · código 123456 (PagoMóvil 912345678 · 654321 tiene saldo insuficiente)</li>
+                </ul>
+                <p>En un sistema real, los datos de la tarjeta los captura una pasarela certificada PCI DSS y nunca llegan a la base de datos del comercio.</p>
+            </details>
+        </section>
+    </main>
+
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/pago.js"></script>
+</body>
+</html>

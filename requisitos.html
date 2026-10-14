@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requisitos | LuzCentro Perú</title>
+    <link rel="stylesheet" href="css/requisitos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header id="menu-principal">
+        <div class="logo-container">
+            <div class="logo-box"><i class="fa-solid fa-bolt"></i></div>
+            <h1>LuzCentro Perú</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="servicios.html">Servicios y Trámites</a></li>
+                <li><a href="requisitos.html" class="activo">Requisitos</a></li>
+                <li><a href="formulario.html">Formularios</a></li>
+                <li><a href="contacto.html"><i class="fa-solid fa-headset"></i> Contacto</a></li>
+                
+                <!-- Enlaces para usuarios no logueados -->
+                <li class="guest-only"><a href="login.html"><i class="fa-solid fa-user"></i> Iniciar Sesión</a></li>
+                <li class="guest-only"><a href="registro.html" class="btn-nav">Crear Cuenta</a></li>
+                
+                <!-- Contenedor para usuario logueado (Oculto por defecto hasta que auth.js lo active) -->
+                <li class="user-only" style="display: none;">
+                    <div class="usuario-header-box">
+                        <span class="usuario-header-link">
+                            <i class="fa-solid fa-circle-user"></i> <span id="user-name-display">Usuario</span>
+                        </span>
+                        <button id="btn-cerrar-sesion" class="btn-cerrar-header">
+                            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="banner-interno" style="background-image: linear-gradient(rgba(10,37,64,0.85), rgba(10,37,64,0.85)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80');">
+        <div class="contenido-banner">
+            <h1>Guía de Requisitos</h1>
+            <p>Conoce la documentación necesaria para tus trámites</p>
+        </div>
+    </div>
+
+    <section class="contenedor-requisitos">
+        <div class="grid-requisitos">
+            
+            <!-- TARJETA: NUEVO SUMINISTRO -->
+            <div class="tarjeta-req">
+                <div class="cabecera-req">
+                    <i class="fa-solid fa-house-chimney"></i>
+                    <h3>Nuevo Suministro</h3>
+                </div>
+                <div class="cuerpo-req">
+                    <p>Para solicitar un nuevo medidor en tu domicilio:</p>
+                    <ul class="lista-check">
+                        <li><i class="fa-solid fa-check"></i> Copia del DNI del titular.</li>
+                        <li><i class="fa-solid fa-check"></i> Documento de propiedad (Título, HR/PU o Constancia de Posesión).</li>
+                        <li><i class="fa-solid fa-check"></i> Croquis de ubicación simple.</li>
+                        <li><i class="fa-solid fa-check"></i> El predio debe contar con caja porta medidor instalada.</li>
+                    </ul>
+                    <a href="formulario.html?tipo=nuevo" class="btn-req">Solicitar ahora</a>
+                </div>
+            </div>
+
+            <!-- TARJETA: CAMBIO DE TITULARIDAD -->
+            <div class="tarjeta-req">
+                <div class="cabecera-req">
+                    <i class="fa-solid fa-users"></i>
+                    <h3>Cambio de Titularidad</h3>
+                </div>
+                <div class="cuerpo-req">
+                    <p>Si eres el nuevo propietario y deseas el recibo a tu nombre:</p>
+                    <ul class="lista-check">
+                        <li><i class="fa-solid fa-check"></i> Copia del DNI del nuevo titular.</li>
+                        <li><i class="fa-solid fa-check"></i> Copia literal o contrato de compra-venta notariado.</li>
+                        <li><i class="fa-solid fa-check"></i> El suministro no debe registrar deudas pendientes.</li>
+                        <li><i class="fa-solid fa-check"></i> Foto del último recibo cancelado.</li>
+                    </ul>
+                    <a href="formulario.html?tipo=cambio" class="btn-req">Solicitar ahora</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-columna">
+                <div class="logo-box" style="display:inline-block; margin-bottom:15px;"><i class="fa-solid fa-bolt"></i></div>
+                <h3>LuzCentro Perú</h3>
+            </div>
+            <div class="footer-base" style="width:100%; border:none; padding-top:0;">
+                <p>&copy; 2026 LuzCentro Perú. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Módulo de autenticación -->
+    <script type="module" src="js/auth.js"></script>
+
+    <script>
+        // Efecto visual en la barra de navegación al hacer scroll
+        window.addEventListener("scroll", function() {
+            var header = document.getElementById("menu-principal");
+            if (window.scrollY > 50) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+        });
+    </script>
+</body>
+</html>

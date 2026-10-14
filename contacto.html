@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | LuzCentro Perú</title>
+    <link rel="stylesheet" href="css/contacto.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header id="menu-principal">
+        <div class="logo-container">
+            <div class="logo-box"><i class="fa-solid fa-bolt"></i></div>
+            <h1>LuzCentro Perú</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="servicios.html">Servicios y Trámites</a></li>
+                <li><a href="requisitos.html">Requisitos</a></li>
+                <li><a href="formulario.html">Formularios</a></li>
+                <li><a href="contacto.html" class="activo"><i class="fa-solid fa-headset"></i> Contacto</a></li>
+                
+                <!-- Enlaces para usuarios no logueados -->
+                <li class="guest-only"><a href="login.html"><i class="fa-solid fa-user"></i> Iniciar Sesión</a></li>
+                <li class="guest-only"><a href="registro.html" class="btn-nav">Crear Cuenta</a></li>
+                
+                <!-- Contenedor para usuario logueado -->
+                <li class="user-only" style="display: none;">
+                    <div class="usuario-header-box">
+                        <span class="usuario-header-link">
+                            <i class="fa-solid fa-circle-user"></i> <span id="user-name-display">Usuario</span>
+                        </span>
+                        <button id="btn-cerrar-sesion" class="btn-cerrar-header">
+                            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="banner-interno" style="background-image: linear-gradient(rgba(10,37,64,0.85), rgba(10,37,64,0.85)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1920&q=80');">
+        <div class="contenido-banner">
+            <h1>Centro de Atención</h1>
+            <p>Estamos aquí para escucharte y resolver tus consultas 24/7</p>
+        </div>
+    </div>
+
+    <section class="contenedor-contacto">
+        <div class="grid-contacto">
+            <div class="info-contacto">
+                <h2>¿En qué podemos ayudarte?</h2>
+                <p>Comunícate con nosotros a través de nuestros canales oficiales o visítanos en nuestra sede principal.</p>
+                
+                <div class="lista-contacto">
+                    <div class="item-contacto">
+                        <div class="icono-contacto"><i class="fa-solid fa-phone"></i></div>
+                        <div>
+                            <h4>Fonoluz Centro</h4>
+                            <p>(064) 200-000</p>
+                        </div>
+                    </div>
+                    <div class="item-contacto">
+                        <div class="icono-contacto"><i class="fa-solid fa-envelope"></i></div>
+                        <div>
+                            <h4>Correo Electrónico</h4>
+                            <p>consultas@luzcentro.pe</p>
+                        </div>
+                    </div>
+                    <div class="item-contacto">
+                        <div class="icono-contacto"><i class="fa-solid fa-location-dot"></i></div>
+                        <div>
+                            <h4>Sede Principal</h4>
+                            <p>Av. Huancavelica 123, El Tambo<br>Huancayo, Junín, Perú</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="caja-formulario">
+                <h3>Envíanos un mensaje</h3>
+                
+                <!-- EL FORMULARIO DE CONTACTO -->
+                <form id="form-contacto">
+                    <div class="grupo-input">
+                        <input type="text" id="nombre" required placeholder=" ">
+                        <label for="nombre">Nombre Completo</label>
+                    </div>
+                    <div class="grupo-input">
+                        <input type="email" id="correo" required placeholder=" ">
+                        <label for="correo">Correo Electrónico</label>
+                    </div>
+                    <div class="grupo-input">
+                        <input type="text" id="suministro" placeholder=" ">
+                        <label for="suministro">N° Suministro (Opcional)</label>
+                    </div>
+                    <div class="grupo-input">
+                        <textarea id="mensaje" rows="4" required placeholder=" "></textarea>
+                        <label for="mensaje">¿Cómo podemos ayudarte?</label>
+                    </div>
+                    <button type="submit" class="btn-enviar" id="btn-enviar">Enviar Mensaje <i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+
+                <!-- MENSAJE DE ÉXITO OCULTO -->
+                <div id="mensaje-exito" style="display: none; text-align: center; padding: 40px 20px;">
+                    <i class="fa-solid fa-circle-check" style="font-size: 4rem; color: #10b981; margin-bottom: 20px;"></i>
+                    <h3 style="color: #0a2540; margin-bottom: 15px;">¡Mensaje Enviado!</h3>
+                    <p style="color: #64748b; margin-bottom: 25px;">Gracias por contactarnos, <strong id="nombre-exito"></strong>. Hemos recibido tu mensaje y te responderemos a la brevedad a tu correo electrónico.</p>
+                    <button onclick="location.reload()" class="btn-enviar" style="width: auto; padding: 10px 30px; margin: 0 auto;">Enviar otra consulta</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-columna">
+                <div class="logo-box" style="display:inline-block; margin-bottom:15px;"><i class="fa-solid fa-bolt"></i></div>
+                <h3>LuzCentro Perú</h3>
+                <p>Comprometidos con el desarrollo energético y social del centro del país.</p>
+            </div>
+            <div class="footer-columna">
+                <h3>Atención al Cliente</h3>
+                <ul>
+                    <li><i class="fa-solid fa-phone"></i> (064) 200-000</li>
+                    <li><i class="fa-solid fa-envelope"></i> consultas@luzcentro.pe</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-base">
+            <p>&copy; 2026 LuzCentro Perú. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL DE AUTENTICACIÓN REQUERIDA -->
+    <div id="modal-auth" class="modal-overlay">
+        <div class="modal-caja">
+            <div class="modal-icono"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>Inicio de Sesión Requerido</h3>
+            <p>Para proteger tus datos y registrar tu mensaje, necesitas acceder a tu cuenta.</p>
+            <div class="modal-botones">
+                <button class="btn-modal-cancelar" onclick="cerrarModalAuth()">Cancelar</button>
+                <a href="login.html" class="btn-modal-login">Iniciar Sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts de autenticación y lógica -->
+    <script type="module" src="js/auth.js"></script>
+    
+    <!-- SCRIPT PARA GUARDAR CONTACTO EN NEON CON VALIDACIÓN DE SESIÓN -->
+    <script type="module">
+        import { sql } from './js/neon-config.js';
+
+        const formContacto = document.getElementById('form-contacto');
+        const btnEnviar = document.getElementById('btn-enviar');
+        const mensajeExito = document.getElementById('mensaje-exito');
+        const nombreExito = document.getElementById('nombre-exito');
+        const modal = document.getElementById('modal-auth');
+
+        // Función para cerrar el modal expuesta globalmente
+        window.cerrarModalAuth = function() {
+            modal.classList.remove('activo');
+        }
+
+        formContacto.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // 1. VALIDACIÓN DE SESIÓN (igual que en servicios.html)
+            const contenedorUsuario = document.querySelector('.user-only');
+            const sesionIniciada = contenedorUsuario && contenedorUsuario.style.display !== 'none';
+            const sesionStorage = localStorage.getItem('usuario') || sessionStorage.getItem('usuario'); 
+
+            if (!sesionIniciada && !sesionStorage) {
+                // Si no hay sesión, mostramos el modal y detenemos el envío
+                modal.classList.add('activo');
+                return;
+            }
+
+            // 2. SI HAY SESIÓN, CONTINUAMOS CON EL ENVÍO A NEON
+            const nombre = document.getElementById('nombre').value.trim();
+            const correo = document.getElementById('correo').value.trim();
+            const suministro = document.getElementById('suministro').value.trim() || null; 
+            const mensaje = document.getElementById('mensaje').value.trim();
+
+            try {
+                btnEnviar.disabled = true;
+                btnEnviar.innerHTML = 'Enviando... <i class="fa-solid fa-circle-notch fa-spin"></i>';
+
+                await sql`
+                    INSERT INTO mensajes_contacto (nombre, correo, suministro, mensaje)
+                    VALUES (${nombre}, ${correo}, ${suministro}, ${mensaje})
+                `;
+
+                formContacto.style.display = 'none';
+                nombreExito.textContent = nombre;
+                mensajeExito.style.display = 'block';
+
+            } catch (error) {
+                console.error("Error al guardar el mensaje en Neon:", error);
+                alert("Hubo un error al intentar enviar tu mensaje. Por favor, revisa tu conexión e inténtalo de nuevo.");
+                
+                btnEnviar.disabled = false;
+                btnEnviar.innerHTML = 'Enviar Mensaje <i class="fa-solid fa-paper-plane"></i>';
+            }
+        });
+    </script>
+    
+    <!-- EFECTO SCROLL PARA EL HEADER -->
+    <script>
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('menu-principal');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

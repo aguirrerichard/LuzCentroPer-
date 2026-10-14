@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio | LuzCentro Perú</title>
+
+    <!-- Vinculamos su CSS exclusivo -->
+    <link rel="stylesheet" href="css/inicio.css">
+    <!-- Iconos Profesionales de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header id="menu-principal">
+        <div class="logo-container">
+            <div class="logo-box"><i class="fa-solid fa-bolt"></i></div>
+            <h1>LuzCentro Perú</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="activo">Inicio</a></li>
+                <li><a href="servicios.html">Servicios y Trámites</a></li>
+                <li><a href="requisitos.html">Requisitos</a></li>
+                <li><a href="formulario.html">Formularios</a></li>
+                <li><a href="contacto.html"><i class="fa-solid fa-headset"></i> Contacto</a></li>
+                <li><a href="login.html"><i class="fa-solid fa-user"></i> Iniciar Sesión</a></li>
+                <li><a href="login.html" class="btn-nav">Crear Cuenta</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- PORTADA PRINCIPAL -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tag"><i class="fa-solid fa-leaf"></i> Energía Sostenible para el Centro</div>
+            <h2>Iluminando el <span>desarrollo</span> de nuestra región.</h2>
+            <p>Brindamos un servicio de distribución eléctrica seguro, continuo y con calidez humana para Junín, Huánuco, Pasco, Huancavelica y Ayacucho.</p>
+            <a href="servicios.html" class="btn-primary">Ingresar a Oficina Virtual <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE SERVICIOS RÁPIDOS -->
+    <section class="seccion-destacada">
+        <div class="cabecera-seccion">
+            <h2>¿Qué necesitas hacer hoy?</h2>
+            <p>Gestiona tus servicios desde la comodidad de tu hogar de forma rápida, segura y transparente.</p>
+        </div>
+        <div class="cuadricula-tarjetas">
+            <div class="tarjeta">
+                <div class="tarjeta-img" style="background-image: url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80');">
+                    <span class="etiqueta">Pagos</span>
+                </div>
+                <div class="tarjeta-cuerpo">
+                    <h3>Consulta y Pago de Recibo</h3>
+                    <p>Revisa tu último estado de cuenta, historial de consumos y paga de inmediato sin salir de casa.</p>
+                    <a href="servicios.html" class="enlace-tarjeta">Pagar ahora <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+            <div class="tarjeta">
+                <div class="tarjeta-img" style="background-image: url('https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=800&q=80');">
+                    <span class="etiqueta">Trámites</span>
+                </div>
+                <div class="tarjeta-cuerpo">
+                    <h3>Nuevo Suministro</h3>
+                    <p>Inicia el proceso documentario para obtener un nuevo medidor de luz para tu vivienda o negocio.</p>
+                    <a href="servicios.html" class="enlace-tarjeta">Iniciar trámite <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+            <div class="tarjeta">
+                <div class="tarjeta-img" style="background-image: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80');">
+                    <span class="etiqueta">Soporte 24/7</span>
+                </div>
+                <div class="tarjeta-cuerpo">
+                    <h3>Reportar Averías</h3>
+                    <p>¿Estás sin servicio o viste un poste dañado? Nuestro equipo técnico está listo para atenderte.</p>
+                    <a href="contacto.html" class="enlace-tarjeta">Reportar falla <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE CONSULTA Y REGISTRO DE RECLAMOS AGREGADA -->
+    <section id="seccion-atencion-reclamos" class="seccion-reclamos-container">
+        <div class="contenedor-publico-grid">
+            
+            <!-- 1. TARJETA DE CONSULTA DE ESTADO -->
+            <div class="card-publica">
+                <div class="card-header-pub">
+                    <div class="icono-pub"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <div>
+                        <h3>Consultar Estado de Reclamo</h3>
+                        <p>Ingresa tu Código de Seguimiento (ej. COD-20535815) o DNI</p>
+                    </div>
+                </div>
+
+                <form id="form-consulta-publico" class="form-buscar-pub">
+                    <div class="grupo-input-pub">
+                        <input type="text" id="input-buscar-pub" placeholder="Ej: 61055481 o COD-20535815" required>
+                        <button type="submit" class="btn-buscar-pub">
+                            <i class="fa-solid fa-search"></i> Buscar
+                        </button>
+                    </div>
+                </form>
+
+                <div id="resultado-busqueda-pub" class="resultado-box-pub hidden"></div>
+            </div>
+
+            <!-- 2. TARJETA DE REGISTRO DE NUEVO RECLAMO -->
+            <div class="card-publica">
+                <div class="card-header-pub">
+                    <div class="icono-pub naranja"><i class="fa-solid fa-file-pen"></i></div>
+                    <div>
+                        <h3>Registrar Reclamo por Cobro Excesivo</h3>
+                        <p>Completa el formulario para ingresar tu solicitud al sistema</p>
+                    </div>
+                </div>
+
+                <form id="form-nuevo-reclamo-pub" class="form-grid-pub">
+                    <div class="campo-pub">
+                        <label for="pub-dni">DNI / RUC *</label>
+                        <input type="text" id="pub-dni" maxlength="8" pattern="\d{8}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Debe contener exactamente 8 números" placeholder="Ej: 61055481" required>
+                    </div>
+
+                    <div class="campo-pub">
+                        <label for="pub-nombre">Nombre Completo *</label>
+                        <input type="text" id="pub-nombre" placeholder="Ej: Jhoshua Silva" required>
+                    </div>
+
+                    <div class="campo-pub">
+                        <label for="pub-suministro">N° de Suministro *</label>
+                        <input type="text" id="pub-suministro" minlength="6" maxlength="8" pattern="\d{6,8}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Debe contener entre 6 y 8 números" placeholder="Ej: 29381925" required>
+                    </div>
+
+                    <div class="campo-pub">
+                        <label for="pub-motivo">Motivo</label>
+                        <input type="text" value="Reclamo por Cobro Excesivo" readonly class="input-readonly">
+                    </div>
+
+                    <div class="campo-pub full">
+                        <label for="pub-comentario">Sustento / Breve Detalle *</label>
+                        <textarea id="pub-comentario" rows="3" placeholder="Describa la disconformidad con el cobro en su recibo..." required></textarea>
+                    </div>
+
+                    <div class="campo-pub full">
+                        <button type="submit" class="btn-enviar-pub">
+                            <i class="fa-solid fa-paper-plane"></i> Enviar Reclamo
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER GLOBAL -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-columna">
+                <div class="logo-box" style="display:inline-block; margin-bottom:15px;"><i class="fa-solid fa-bolt"></i></div>
+                <h3>LuzCentro Perú</h3>
+                <p>Comprometidos con el desarrollo energético y social del centro del país, brindando energía de calidad.</p>
+            </div>
+            <div class="footer-columna">
+                <h3>Atención al Cliente</h3>
+                <ul>
+                    <li><i class="fa-solid fa-phone"></i> (064) 200-000</li>
+                    <li><i class="fa-solid fa-envelope"></i> consultas@luzcentro.pe</li>
+                    <li><i class="fa-solid fa-location-dot"></i> Av. Huancavelica 123, Huancayo</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-base">
+            <p>&copy; 2026 LuzCentro Perú. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Módulo de autenticación y estado de sesión -->
+    <script type="module" src="js/auth.js"></script>
+
+    <!-- Script principal -->
+    <script type="module" src="js/main.js"></script>
+
+    <!-- Script interno para el menú interactivo -->
+    <script>
+        window.addEventListener("scroll", function() {
+            var header = document.getElementById("menu-principal");
+            if (window.scrollY > 50) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+        });
+    </script>
+</body>
+</html>

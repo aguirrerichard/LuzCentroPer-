@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud Cambio de Titular | LuzCentro Perú</title>
+    <link rel="stylesheet" href="css/solicitud.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header id="menu-principal">
+        <div class="logo-container">
+            <div class="logo-box"><i class="fa-solid fa-bolt"></i></div>
+            <h1>LuzCentro Perú</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="servicios.html"><i class="fa-solid fa-arrow-left"></i> Regresar</a></li>
+                
+                <!-- Enlaces para usuarios no logueados -->
+                <li class="guest-only"><a href="login.html"><i class="fa-solid fa-user"></i> Iniciar Sesión</a></li>
+                <li class="guest-only"><a href="registro.html" class="btn-nav">Crear Cuenta</a></li>
+                
+                <!-- Contenedor para usuario logueado -->
+                <li class="user-only" style="display: none;">
+                    <div class="usuario-header-box">
+                        <span class="usuario-header-link">
+                            <i class="fa-solid fa-circle-user"></i> <span id="user-name-display">Usuario</span>
+                        </span>
+                        <button id="btn-cerrar-sesion" class="btn-cerrar-header">
+                            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contenedor-formulario">
+        <div class="caja-formulario">
+            <form id="form-cambio-titular">
+                <h2 style="text-align: center; color: var(--primario); margin-bottom: 25px;">Cambio de Titular</h2>
+                
+                <h3>Paso 1: Datos del Suministro</h3>
+                <div class="grupo-input">
+                    <label for="suministro">N° de Suministro Actual *</label>
+                    <input type="text" id="suministro" required placeholder="Ej: 123456" maxlength="10">
+                </div>
+                
+                <h3>Paso 2: Datos del Nuevo Titular</h3>
+                <div class="grupo-input">
+                    <label for="nombres">Nombres Completos *</label>
+                    <input type="text" id="nombres" required placeholder="Ingresa tus nombres y apellidos">
+                </div>
+                
+                <button type="submit" id="btn-enviar" class="btn-enviar">Procesar Solicitud</button>
+                
+                <div id="mensaje-exito" style="display: none; margin-top: 15px;"></div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Script de autenticación global -->
+    <script type="module" src="js/auth.js"></script>
+
+    <!-- Script para guardar en Neon -->
+    <script type="module">
+        import { sql } from './js/neon-config.js';
+
+        const form = document.getElementById('form-cambio-titular');
+        const btnEnviar = document.getElementById('btn-enviar');
+        const mensajeExito = document.getElementById('mensaje-exito');
+        const inputSuministro = document.getElementById('suministro');
+        const inputNombres = document.getElementById('nombres');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('suministro')) {
+            inputSuministro.value = urlParams.get('suministro');
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const suministro = inputSuministro.value.trim();
+            const nombres = inputNombres.value.trim();
+            
+            if (!suministro || !nombres) {
+                alert('Por favor, completa todos los campos.');
+                return;
+            }
+
+            if (suministro.length < 6) {
+                alert('El número de suministro debe tener al menos 6 dígitos.');
+                return;
+            }
+
+            const codigo = 'CAMB-' + Date.now().toString().slice(-6);
+
+            try {
+                btnEnviar.disabled = true;
+                btnEnviar.innerHTML = 'Guardando en Neon... <i class="fa-solid fa-circle-notch fa-spin"></i>';
+                mensajeExito.style.display = 'none';
+
+                await sql`
+                    INSERT INTO reclamos_luz (
+                        codigo_seguimiento, nombre_cliente, motivo, numero_suministro, estado
+                    ) VALUES (
+                        ${codigo}, ${nombres}, 'Cambio de Titular', ${suministro}, 'registrado'
+                    )
+                `;
+
+                mensajeExito.style.display = 'block';
+                mensajeExito.innerHTML = `
+                    <div style="background:#d1fae5; color:#065f46; border:2px solid #10b981; padding:15px; border-radius:8px; text-align:center;">
+                        <i class="fa-solid fa-circle-check" style="font-size:1.8rem; margin-bottom:8px;"></i><br>
+                        <strong>¡Solicitud Registrada!</strong><br>
+                        Tu código de seguimiento es: <br><span style="font-size:1.3rem; font-weight:bold; color:#047857;">${codigo}</span>
+                    </div>
+                `;
+                form.reset();
+
+            } catch (error) {
+                console.error('Error al guardar en Neon:', error);
+                alert('Hubo un error al registrar el trámite en la base de datos.');
+            } finally {
+                btnEnviar.disabled = false;
+                btnEnviar.textContent = 'Procesar Solicitud';
+            }
+        });
+    </script>
+</body>
+</html>
